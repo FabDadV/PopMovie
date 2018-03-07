@@ -16,8 +16,8 @@ import com.ex.popmovie.utilities.NetworkUtils;
 import com.ex.popmovie.utilities.JsonUtils;
 
 public class MainActivity extends AppCompatActivity implements RecyclerViewAdapter.RecyclerViewAdapterOnClickHandler {
-    // TODO (1) add parameter queryType
-    //    private String queryType = "/popular?";
+    // TODO (1) add sort by parameter queryType by menu in (NetworkUtils.buildUrl(apiKey, queryType);)
+    private String queryType = "/popular?";
     private RecyclerView recyclerView;
     private RecyclerViewAdapter recyclerViewAdapter;
 
@@ -34,13 +34,12 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         recyclerViewAdapter = new RecyclerViewAdapter(this);
         recyclerView.setAdapter(recyclerViewAdapter);
         // Call loadData to perform the network request to get data
-        loadData();
+        loadData(queryType);
     }
 
-    //    private void loadData() { new QueryAsyncTask().execute(apiKey, queryType); }
-    private void loadData() {
+    private void loadData(String queryType) {
         String apiKey = getResources().getString(R.string.key_api);
-        new QueryAsyncTask().execute(apiKey);
+        new QueryAsyncTask().execute(apiKey, queryType);
     }
 
     // Create a class that extends AsyncTask to perform network requests
@@ -52,10 +51,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
                 return null;
             }
             String apiKey = params[0];
-//            String queryType = params[1];
-//            URL requestUrl = NetworkUtils.buildUrl(apiKey, queryType);
-            URL requestUrl = NetworkUtils.buildUrl(apiKey);
-            try {
+            String queryType = params[1];
+            URL requestUrl = NetworkUtils.buildUrl(apiKey, queryType);
+           try {
                 String jsonResponse = NetworkUtils.getResponseFromHttpUrl(requestUrl);
                 return JsonUtils.parseJson(jsonResponse);
             } catch (Exception e) {

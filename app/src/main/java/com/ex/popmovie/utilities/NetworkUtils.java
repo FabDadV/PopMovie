@@ -9,12 +9,13 @@ import java.net.URL;
 import java.util.Scanner;
 
 public final class NetworkUtils {
-    private static final String BASE_URL = "https://api.themoviedb.org/3/movie/popular?";
+    private static final String BASE_URL = "https://api.themoviedb.org/3/movie";
     private static final String API_KEY = "api_key";
 
     //    public static URL buildUrl(String apiKey, String queryType) {
-    public static URL buildUrl(String apiKey) {
-        Uri builtUri = Uri.parse(BASE_URL).buildUpon()
+    public static URL buildUrl(String apiKey, String queryType) {
+        String baseUrl = BASE_URL + queryType;
+        Uri builtUri = Uri.parse(baseUrl).buildUpon()
                 .appendQueryParameter(API_KEY , apiKey)
                 .build();
         URL url = null;
