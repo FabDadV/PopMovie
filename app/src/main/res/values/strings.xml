@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">PopMovie</string>
+    <string name="key_api">PPPPPPPPPPPPPPP</string>
+    <string name="top_pop">Most popular</string>
+    <string name="top_rated">Top rated</string>
+    <string name="top_new">Release date</string>
+    <string name="top_fav">Favorite</string>
+
+    <string name="image_description">Movie</string>
+    <string name="label_overview">Overview</string>
+    <string name="label_vote">Vote</string>
+    <string name="label_pop">Popularity</string>
+    <string name="label_release">Release date:</string>
+</resources>
