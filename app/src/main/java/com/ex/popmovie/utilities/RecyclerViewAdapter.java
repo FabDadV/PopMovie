@@ -15,7 +15,7 @@ import com.ex.popmovie.data.Movie;
 
 // Creates a RecyclerView Adapter:
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{
-    private Movie[] movieList;
+    public Movie[] movieList;
 
     // An on-click handler that we've defined to make it easy for an Activity to interface with our RecyclerView
     private final RecyclerViewAdapterOnClickHandler mClickHandler;
