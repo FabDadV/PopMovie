@@ -19,8 +19,6 @@ import com.ex.popmovie.utilities.JsonUtils;
 import static com.ex.popmovie.DetailActivity.EXTRA_OBJECT;
 
 public class MainActivity extends AppCompatActivity implements RecyclerViewAdapter.RecyclerViewAdapterOnClickHandler {
-    // TODO (1) add sort by parameter queryType by menu in (NetworkUtils.buildUrl(apiKey, queryType);)
-    private String queryType = "/popular?";
     private RecyclerView recyclerView;
     private RecyclerViewAdapter recyclerViewAdapter;
     private Movie[] movies;
@@ -38,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         recyclerViewAdapter = new RecyclerViewAdapter(this);
         recyclerView.setAdapter(recyclerViewAdapter);
         // Call loadData to perform the network request to get data
+        String queryType = "/popular?";
         loadData(queryType);
     }
 
@@ -72,9 +71,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
             if (movieList != null) {
                 recyclerView.setVisibility(View.VISIBLE);
                 // Instead of iterating through every string, use recyclerViewAdapter.setList and pass in data
-                for(int i=0; i < movieList.length; i++) {
-                    movies[i] = movieList[i];
-                }
+                System.arraycopy(movieList, 0, movies, 0, movieList.length);
                 recyclerViewAdapter.setList(movieList);
             } else {
                 Toast.makeText(MainActivity.this, "ErrorQuery. Check out correct api_key", Toast.LENGTH_SHORT).show();

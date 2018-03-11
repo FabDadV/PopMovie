@@ -14,6 +14,7 @@ public class Movie implements Parcelable {
 
     public Movie() {}
 
+/*
     public Movie(String idMovie, String title, String posterPath, String overview, String vote, String pop, String releaseDate) {
         this.idMovie = idMovie;
         this.title = title;
@@ -23,6 +24,7 @@ public class Movie implements Parcelable {
         this.pop =pop;
         this.releaseDate = releaseDate;
     }
+*/
 
     public Movie(Parcel in) {
         String[] data = new String[7];

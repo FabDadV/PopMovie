@@ -15,7 +15,7 @@ import com.ex.popmovie.data.Movie;
 
 // Creates a RecyclerView Adapter:
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{
-    public Movie[] movieList;
+    private Movie[] movieList;
 
     // An on-click handler that we've defined to make it easy for an Activity to interface with our RecyclerView
     private final RecyclerViewAdapterOnClickHandler mClickHandler;
@@ -43,7 +43,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         private TextView tvReleaseDate;
         private TextView tvIdMovie;
 // Create a constructor for this class that accepts a View as a parameter
-// Call super(itemVview)
+// Call super(itemView)
 // Using itemView.findViewById, get a reference to these layout's TextViews and save it.
         public ViewHolder(View itemView) {
             super(itemView);
@@ -127,7 +127,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     /**
      * This method is used to set the response data on a DataAdapter if we've already created one.
      * This is handy when we get new data from the web but don't want to create a new RecyclerViewAdapter to display it.
-     * @param responceData The new data to be displayed.
+     *   The new data to be displayed.
      */
     // Create a setList method that saves the responceData to mList
     public void setList(Movie[] movies) {

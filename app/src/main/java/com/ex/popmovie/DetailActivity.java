@@ -7,7 +7,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ex.popmovie.data.Movie;
-import com.ex.popmovie.utilities.RecyclerViewAdapter;
 
 public class DetailActivity extends AppCompatActivity {
     public static final String EXTRA_OBJECT = "mark_movie";
@@ -27,7 +26,7 @@ public class DetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         // (2) Display the data that was passed from MainActivity
-        if (intent == null) { closeOnError(); return; } ;
+        if (intent == null) { closeOnError(); return; }
 //        intent.getIntExtra(EXTRA_POSITION, position);
         Movie movieDetail = getIntent().getParcelableExtra(EXTRA_OBJECT);
 
@@ -54,4 +53,3 @@ public class DetailActivity extends AppCompatActivity {
     }
 
 }
-
