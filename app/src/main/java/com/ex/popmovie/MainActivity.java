@@ -21,7 +21,6 @@ import static com.ex.popmovie.DetailActivity.EXTRA_OBJECT;
 public class MainActivity extends AppCompatActivity implements RecyclerViewAdapter.RecyclerViewAdapterOnClickHandler {
     private RecyclerView recyclerView;
     private RecyclerViewAdapter recyclerViewAdapter;
-    private Movie[] movies;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,19 +70,19 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
             if (movieList != null) {
                 recyclerView.setVisibility(View.VISIBLE);
                 // Instead of iterating through every string, use recyclerViewAdapter.setList and pass in data
-                System.arraycopy(movieList, 0, movies, 0, movieList.length);
                 recyclerViewAdapter.setList(movieList);
             } else {
                 Toast.makeText(MainActivity.this, "ErrorQuery. Check out correct api_key", Toast.LENGTH_SHORT).show();
             }
         }
     }
-
     // Override method in order to handle RecyclerView item clicks.
     public void onClick(int position) {
         Intent intent = new Intent(this, DetailActivity.class);
         // Pass the data to the DetailActivity
-        intent.putExtra(EXTRA_OBJECT, movies[position]);
+        Movie markMovie = new Movie();
+        markMovie = this.recyclerViewAdapter.movieList[position];
+        intent.putExtra(EXTRA_OBJECT, markMovie);
         startActivity(intent);
     }
 }
