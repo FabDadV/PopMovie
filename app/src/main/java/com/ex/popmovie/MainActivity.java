@@ -17,14 +17,13 @@ import com.ex.popmovie.utilities.NetworkUtils;
 import com.ex.popmovie.utilities.JsonUtils;
 
 import static com.ex.popmovie.DetailActivity.EXTRA_OBJECT;
-import static com.ex.popmovie.DetailActivity.EXTRA_POSITON;
 
 public class MainActivity extends AppCompatActivity implements RecyclerViewAdapter.RecyclerViewAdapterOnClickHandler {
     // TODO (1) add sort by parameter queryType by menu in (NetworkUtils.buildUrl(apiKey, queryType);)
     private String queryType = "/popular?";
     private RecyclerView recyclerView;
     private RecyclerViewAdapter recyclerViewAdapter;
-    public Movie markMovie;
+    private Movie[] movies;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +72,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
             if (movieList != null) {
                 recyclerView.setVisibility(View.VISIBLE);
                 // Instead of iterating through every string, use recyclerViewAdapter.setList and pass in data
+                for(int i=0; i < movieList.length; i++) {
+                    movies[i] = movieList[i];
+                }
                 recyclerViewAdapter.setList(movieList);
             } else {
                 Toast.makeText(MainActivity.this, "ErrorQuery", Toast.LENGTH_SHORT).show();
@@ -84,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     public void onClick(int position) {
         Intent intent = new Intent(this, DetailActivity.class);
         // Pass the data to the DetailActivity
-        intent.putExtra(EXTRA_OBJECT, markMovie);
+        intent.putExtra(EXTRA_OBJECT, movies[position]);
         startActivity(intent);
     }
 }

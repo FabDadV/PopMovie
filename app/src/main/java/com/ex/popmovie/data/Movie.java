@@ -1,6 +1,9 @@
 package com.ex.popmovie.data;
 
-public class Movie {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Movie implements Parcelable {
     private String idMovie;
     private String title;
     private String posterPath;
@@ -20,6 +23,41 @@ public class Movie {
         this.pop =pop;
         this.releaseDate = releaseDate;
     }
+
+    public Movie(Parcel in) {
+        String[] data = new String[7];
+        in.readStringArray(data);
+        this.idMovie = data[0];
+        this.title = data[1];
+        this.posterPath = data[2];
+        this.overview = data[3];
+        this.vote = data[4];
+        this.pop = data[5];
+        this.releaseDate = data[6];
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeStringArray(new String[]{idMovie, title, posterPath, overview, vote, pop, releaseDate});
+    }
+
+    public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
+
+        @Override
+        public Movie createFromParcel(Parcel source) {
+            return new Movie(source);
+        }
+
+        @Override
+        public Movie[] newArray(int size) {
+            return new Movie[size];
+        }
+    };
 
     public String getIdMovie() {
         return idMovie;

@@ -10,7 +10,7 @@ import com.ex.popmovie.data.Movie;
 import com.ex.popmovie.utilities.RecyclerViewAdapter;
 
 public class DetailActivity extends AppCompatActivity {
-    public static final String EXTRA_OBJECT = "extra_object";
+    public static final String EXTRA_OBJECT = "mark_movie";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,16 +28,24 @@ public class DetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         // (2) Display the data that was passed from MainActivity
 //        if (intent == null) { closeOnError(); } ;
-        Movie movieDetail = new Movie();
-        intent.getIntExtra(EXTRA_OBJECT, movieDetail);
+//        intent.getIntExtra(EXTRA_POSITION, position);
+        Movie movieDetail = getIntent().getParcelableExtra(EXTRA_OBJECT);
 
-        tvPosterPath.setText(movieDetail.getPosterPath());
-        tvTitle.setText(movieDetail.getTitle());
-        tvOverview.setText(movieDetail.getOverview());
-        tvVote.setText(movieDetail.getVote());
-        tvPop.setText(movieDetail.getPop());
-        tvReleaseDate.setText(movieDetail.setReleaseDate());
-        tvIdMovie.setText(movieDetail.getIdMovie());
+        String mPosterPath = movieDetail.getPosterPath();
+        String mTitle = movieDetail.getTitle();
+        String mOverview = movieDetail.getOverview();
+        String mVote = movieDetail.getVote();
+        String mPop = movieDetail.getPop();
+        String mReleaseDate = movieDetail.getReleaseDate();
+        String mIdMovie = movieDetail.getIdMovie();
+
+        tvPosterPath.setText(mPosterPath);
+        tvTitle.setText(mTitle);
+        tvOverview.setText(mOverview);
+        tvVote.setText(mVote);
+        tvPop.setText(mPop);
+        tvReleaseDate.setText(mReleaseDate);
+        tvIdMovie.setText(mIdMovie);
     }
 
 /*
