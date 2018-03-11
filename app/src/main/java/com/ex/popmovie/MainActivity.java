@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
                 }
                 recyclerViewAdapter.setList(movieList);
             } else {
-                Toast.makeText(MainActivity.this, "ErrorQuery", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "ErrorQuery. Check out correct api_key", Toast.LENGTH_SHORT).show();
             }
         }
     }
