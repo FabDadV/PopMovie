@@ -7,18 +7,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ex.popmovie.R;
+import com.ex.popmovie.data.Movie;
 
+// Creates a RecyclerView Adapter:
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{
-    private String[] mList;
+    public Movie[] movieList;
 
     // An on-click handler that we've defined to make it easy for an Activity to interface with our RecyclerView
     private final RecyclerViewAdapterOnClickHandler mClickHandler;
     // The interface that receives onClick messages.
     public interface RecyclerViewAdapterOnClickHandler {
-        void onClick(String stringDetail);
+        void onClick(int position);
     }
     /* Creates a RecyclerViewAdapter.
      * @param clickHandler The on-click handler for this adapter. This single handler is called when an item is clicked.
@@ -30,21 +33,37 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
      * Cache of the children views for a list item.
      */
     public class ViewHolder extends RecyclerView.ViewHolder implements OnClickListener {
-        public final TextView mData;
-        // Create a constructor for this class that accepts a View as a parameter
-// Call super(view)
-// Using view.findViewById, get a reference to this layout's TextView and save it to mDay
-        public ViewHolder(View view) {
-            super(view);
-            mData = view.findViewById(R.id.tv_data);
-            view.setOnClickListener(this);
+//        public final TextView mData;
+        private ImageView ivPoster;
+        private TextView tvPosterPath;
+        private TextView tvTitle;
+        private TextView tvOverview;
+        private TextView tvVote;
+        private TextView tvPop;
+        private TextView tvReleaseDate;
+        private TextView tvIdMovie;
+// Create a constructor for this class that accepts a View as a parameter
+// Call super(itemVview)
+// Using itemView.findViewById, get a reference to these layout's TextViews and save it.
+        public ViewHolder(View itemView) {
+            super(itemView);
+//            mData = itemView.findViewById(R.id.tv_data);
+            tvPosterPath = itemView.findViewById(R.id.tv_poster);
+            tvTitle = itemView.findViewById(R.id.tv_title);
+            tvOverview = itemView.findViewById(R.id.tv_overview);
+            tvVote = itemView.findViewById(R.id.tv_vote);
+            tvPop = itemView.findViewById(R.id.tv_pop);
+            tvReleaseDate = itemView.findViewById(R.id.tv_release);
+            tvIdMovie = itemView.findViewById(R.id.tv_id);
+
+            itemView.setOnClickListener(this);
         }
         // This gets called by the child views during a click. @param v The View that was clicked
         @Override
         public void onClick(View v) {
             int adapterPosition = getAdapterPosition();
-            String stringData = mList[adapterPosition];
-            mClickHandler.onClick(stringData);
+//            Movie movieDetail = movieList[adapterPosition];
+            mClickHandler.onClick(adapterPosition);
         }
     }
     // Override onCreateViewHolder
@@ -64,7 +83,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         Context context = viewGroup.getContext();
-        int layoutIdForListItem = R.layout.data_row;
+        int layoutIdForListItem = R.layout.item_data;
         LayoutInflater inflater = LayoutInflater.from(context);
 //        boolean shouldAttachToParentImmediately = false; // don't attach to parent immediately
 
@@ -84,8 +103,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
      */
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-        String stringData = mList[position];
-        viewHolder.mData.setText(stringData);
+        Movie dataMovie = movieList[position];
+        viewHolder.tvPosterPath.setText(dataMovie.getPosterPath());
+        viewHolder.tvTitle.setText(dataMovie.getTitle());
+        viewHolder.tvOverview.setText(dataMovie.getOverview());
+        viewHolder.tvVote.setText(dataMovie.getVote());
+        viewHolder.tvPop.setText(dataMovie.getPop());
+        viewHolder.tvReleaseDate.setText(dataMovie.getReleaseDate());
+        viewHolder.tvIdMovie.setText(dataMovie.getIdMovie());
     }
     // Override getItemCount
     // Return 0 if mList is null, or the size of mList if it is not null
@@ -96,8 +121,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
      */
     @Override
     public int getItemCount() {
-        if (null == mList) return 0;
-        return mList.length;
+        if (null == movieList) return 0;
+        return movieList.length;
     }
     /**
      * This method is used to set the response data on a DataAdapter if we've already created one.
@@ -105,8 +130,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
      * @param responceData The new data to be displayed.
      */
     // Create a setList method that saves the responceData to mList
-    public void setList(String[] responceData) {
-        mList = responceData;
-        notifyDataSetChanged(); // After you save mList, call notifyDataSetChanged
+    public void setList(Movie[] movies) {
+        movieList = movies;
+        notifyDataSetChanged(); // After you save movieList, call notifyDataSetChanged
     }
 }

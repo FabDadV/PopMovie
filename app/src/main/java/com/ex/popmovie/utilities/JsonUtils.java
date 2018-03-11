@@ -1,5 +1,7 @@
 package com.ex.popmovie.utilities;
 
+import com.ex.popmovie.data.Movie;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -8,7 +10,7 @@ import java.net.HttpURLConnection;
 
 /* Utility functions to handle JSON data. */
 public final class JsonUtils {
-    public static String[] parseJson(String dataJsonStr) throws JSONException {
+    public static Movie[] parseJson(String dataJsonStr) throws JSONException {
         final String CUR_HTTP_CODE = "cod";
         JSONObject dataJson = new JSONObject(dataJsonStr);
         /* Is there an error? */
@@ -28,27 +30,23 @@ public final class JsonUtils {
         }
 
         JSONArray dataArray = dataJson.getJSONArray("results");
-        String[] stringList;
+        Movie movies[] = new Movie[dataArray.length()];
 
         try {
-            stringList = new String[dataArray.length()];
             for (int i = 0; i < dataArray.length(); i++) {
+                Movie m = new Movie();
                 JSONObject movieJSON = dataArray.getJSONObject(i);
-                String strMovie = movieJSON.getString("id");
-                String strTitle = movieJSON.getString("title");
-                String strPosterPath = movieJSON.getString("poster_path");
-                String strOverview = movieJSON.getString("overview");
-                String strVote = movieJSON.getString("vote_count");
-                String strPop = movieJSON.getString("popularity");
-                String strReleaseDate = movieJSON.getString("release_date");
-
-                stringList[i] = strPosterPath + "\n" +
-                        "Title: " + strTitle + "\n" +
-                        "Overview: " + strOverview + "\n" +
-                        "Popularity: " + strPop + "; Rating: " + strVote + "\n" +
-                        "ReleaseDate: " + strReleaseDate + "; ID: " + strMovie + "\n\n";
+                m.setIdMovie(movieJSON.getString("id"));
+                m.setTitle(movieJSON.getString("title"));
+                m.setTitle(movieJSON.getString("title"));
+                m.setOverview(movieJSON.getString("overview"));
+                m.setPosterPath(movieJSON.getString("poster_path"));
+                m.setVote(movieJSON.getString("vote_count"));
+                m.setPop(movieJSON.getString("popularity"));
+                m.setReleaseDate(movieJSON.getString("release_date"));
+                movies[i] = m;
             }
-            return stringList;
+            return movies;
         }   catch(Exception e) {
             e.printStackTrace();
             return null;

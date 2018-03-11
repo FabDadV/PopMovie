@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import java.net.URL;
 
+import com.ex.popmovie.data.Movie;
 import com.ex.popmovie.utilities.RecyclerViewAdapter;
 import com.ex.popmovie.utilities.NetworkUtils;
 import com.ex.popmovie.utilities.JsonUtils;
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     private String queryType = "/popular?";
     private RecyclerView recyclerView;
     private RecyclerViewAdapter recyclerViewAdapter;
+    public Movie markMovie;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +45,10 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     }
 
     // Create a class that extends AsyncTask to perform network requests
-    private class QueryAsyncTask extends AsyncTask<String, Void, String[]> {
+    private class QueryAsyncTask extends AsyncTask<String, Void, Movie[]> {
         // Override the doInBackground method to perform your network requests
         @Override
-        protected String[] doInBackground(String... params) {
+        protected Movie[] doInBackground(String... params) {
             if (params.length == 0) {
                 return null;
             }
@@ -64,11 +66,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
 
         // Override the onPostExecute method to display the results of the network request
         @Override
-        protected void onPostExecute(String[] stringList) {
-            if (stringList != null) {
+        protected void onPostExecute(Movie[] movieList) {
+            if (movieList != null) {
                 recyclerView.setVisibility(View.VISIBLE);
                 // Instead of iterating through every string, use recyclerViewAdapter.setList and pass in data
-                recyclerViewAdapter.setList(stringList);
+                recyclerViewAdapter.setList(movieList);
             } else {
                 Toast.makeText(MainActivity.this, "ErrorQuery", Toast.LENGTH_SHORT).show();
             }
@@ -76,10 +78,10 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     }
 
     // Override method in order to handle RecyclerView item clicks.
-    public void onClick(String stringData) {
+    public void onClick(int position) {
         Intent intent = new Intent(this, DetailActivity.class);
         // Pass the data to the DetailActivity
-        intent.putExtra(Intent.EXTRA_TEXT, stringData);
+        intent.putExtra(Intent.EXTRA_POSITON, position);
         startActivity(intent);
     }
 }
