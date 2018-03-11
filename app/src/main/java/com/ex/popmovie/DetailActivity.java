@@ -27,7 +27,7 @@ public class DetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         // (2) Display the data that was passed from MainActivity
-//        if (intent == null) { closeOnError(); } ;
+        if (intent == null) { closeOnError(); return; } ;
 //        intent.getIntExtra(EXTRA_POSITION, position);
         Movie movieDetail = getIntent().getParcelableExtra(EXTRA_OBJECT);
 
@@ -48,12 +48,10 @@ public class DetailActivity extends AppCompatActivity {
         tvIdMovie.setText(mIdMovie);
     }
 
-/*
     private void closeOnError() {
         finish();
         Toast.makeText(this, R.string.detail_error_message, Toast.LENGTH_SHORT).show();
     }
-*/
 
 }
 

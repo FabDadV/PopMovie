@@ -10,7 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/iv_height"
         android:adjustViewBounds="true"
-        android:scaleType="centerCrop" />
+        android:contentDescription="@string/image_description"
+        android:scaleType="centerCrop"
+        android:src="@drawable/p00" />
 
     <TextView
         android:id="@+id/tv_detail_poster"

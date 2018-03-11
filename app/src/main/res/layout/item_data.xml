@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -9,7 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/iv_small_height"
         android:adjustViewBounds="true"
-        android:scaleType="centerCrop" />
+        android:contentDescription="@string/image_description"
+        android:scaleType="centerCrop"
+        tools:src="@drawable/p000" />
 
     <TextView
         android:id="@+id/tv_title"
