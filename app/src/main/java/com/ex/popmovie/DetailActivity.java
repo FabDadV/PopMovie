@@ -10,8 +10,7 @@ import com.ex.popmovie.data.Movie;
 import com.ex.popmovie.utilities.RecyclerViewAdapter;
 
 public class DetailActivity extends AppCompatActivity {
-    public static final String EXTRA_POSITON = "extra_position";
-    private static final int DEFAULT_POSITION = -1;
+    public static final String EXTRA_OBJECT = "extra_object";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,9 +28,9 @@ public class DetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         // (2) Display the data that was passed from MainActivity
 //        if (intent == null) { closeOnError(); } ;
-        int p = intent.getIntExtra(EXTRA_POSITON,DEFAULT_POSITION);
+        Movie movieDetail = new Movie();
+        intent.getIntExtra(EXTRA_OBJECT, movieDetail);
 
-        Movie movieDetail = movieList [p];
         tvPosterPath.setText(movieDetail.getPosterPath());
         tvTitle.setText(movieDetail.getTitle());
         tvOverview.setText(movieDetail.getOverview());

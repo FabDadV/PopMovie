@@ -16,6 +16,9 @@ import com.ex.popmovie.utilities.RecyclerViewAdapter;
 import com.ex.popmovie.utilities.NetworkUtils;
 import com.ex.popmovie.utilities.JsonUtils;
 
+import static com.ex.popmovie.DetailActivity.EXTRA_OBJECT;
+import static com.ex.popmovie.DetailActivity.EXTRA_POSITON;
+
 public class MainActivity extends AppCompatActivity implements RecyclerViewAdapter.RecyclerViewAdapterOnClickHandler {
     // TODO (1) add sort by parameter queryType by menu in (NetworkUtils.buildUrl(apiKey, queryType);)
     private String queryType = "/popular?";
@@ -81,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     public void onClick(int position) {
         Intent intent = new Intent(this, DetailActivity.class);
         // Pass the data to the DetailActivity
-        intent.putExtra(Intent.EXTRA_POSITON, position);
+        intent.putExtra(EXTRA_OBJECT, markMovie);
         startActivity(intent);
     }
 }
