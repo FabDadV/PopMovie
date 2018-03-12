@@ -10,7 +10,6 @@
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         android:contentDescription="@string/image_description"
-        android:scaleType="fitStart"
-        tools:src="@drawable/p000" />
+        android:scaleType="fitStart" />
 
 </FrameLayout>
