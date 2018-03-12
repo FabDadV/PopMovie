@@ -3,12 +3,15 @@ package com.ex.popmovie;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ex.popmovie.data.Movie;
+import com.squareup.picasso.Picasso;
 
 public class DetailActivity extends AppCompatActivity {
+    private static final String MOVIE_URL = "http://image.tmdb.org/t/p/w185";
     public static final String EXTRA_OBJECT = "mark_movie";
 
     @Override
@@ -16,6 +19,7 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
+        ImageView ivPoster = findViewById(R.id.iv_poster);
         TextView tvPosterPath = findViewById(R.id.tv_detail_poster);
         TextView tvTitle = findViewById(R.id.tv_detail_title);
         TextView tvOverview = findViewById(R.id.tv_detail_overview);
@@ -37,6 +41,11 @@ public class DetailActivity extends AppCompatActivity {
         String mPop = movieDetail.getPop();
         String mReleaseDate = movieDetail.getReleaseDate();
         String mIdMovie = movieDetail.getIdMovie();
+
+        String posterUrl = MOVIE_URL + mPosterPath;
+        Picasso.with(this)
+                .load(posterUrl)
+                .into(ivPoster);
 
         tvPosterPath.setText(mPosterPath);
         tvTitle.setText(mTitle);
