@@ -19,6 +19,7 @@ import com.ex.popmovie.utilities.JsonUtils;
 import static com.ex.popmovie.DetailActivity.EXTRA_OBJECT;
 
 public class MainActivity extends AppCompatActivity implements RecyclerViewAdapter.RecyclerViewAdapterOnClickHandler {
+    private String queryType = "/popular?";
     private RecyclerView recyclerView;
     private RecyclerViewAdapter recyclerViewAdapter;
 
@@ -35,7 +36,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         recyclerViewAdapter = new RecyclerViewAdapter(this);
         recyclerView.setAdapter(recyclerViewAdapter);
         // Call loadData to perform the network request to get data
-        String queryType = "/popular?";
         loadData(queryType);
     }
 

@@ -38,10 +38,9 @@ public final class JsonUtils {
                 JSONObject movieJSON = dataArray.getJSONObject(i);
                 m.setIdMovie(movieJSON.getString("id"));
                 m.setTitle(movieJSON.getString("title"));
-                m.setTitle(movieJSON.getString("title"));
                 m.setOverview(movieJSON.getString("overview"));
                 m.setPosterPath(movieJSON.getString("poster_path"));
-                m.setVote(movieJSON.getString("vote_count"));
+                m.setVote(movieJSON.getString("vote_average"));
                 m.setPop(movieJSON.getString("popularity"));
                 m.setReleaseDate(movieJSON.getString("release_date"));
                 movies[i] = m;
