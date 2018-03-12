@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -19,7 +21,7 @@ import com.ex.popmovie.utilities.JsonUtils;
 import static com.ex.popmovie.DetailActivity.EXTRA_OBJECT;
 
 public class MainActivity extends AppCompatActivity implements RecyclerViewAdapter.RecyclerViewAdapterOnClickHandler {
-    private String queryType = "/popular?";
+    private String queryType = "/top_rated?";
     private RecyclerView recyclerView;
     private RecyclerViewAdapter recyclerViewAdapter;
 
@@ -84,5 +86,27 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         markMovie = this.recyclerViewAdapter.movieList[position];
         intent.putExtra(EXTRA_OBJECT, markMovie);
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemThatWasClickedId = item.getItemId();
+        if (itemThatWasClickedId == R.id.menu_pop) {
+            queryType = "/popular?";
+            loadData(queryType);
+            return true;
+        }
+        if (itemThatWasClickedId == R.id.menu_rate) {
+            queryType = "/top_rated?";
+            loadData(queryType);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
