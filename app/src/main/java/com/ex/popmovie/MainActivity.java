@@ -23,7 +23,7 @@ import com.ex.popmovie.utilities.JsonUtils;
 import static com.ex.popmovie.DetailActivity.EXTRA_OBJECT;
 
 public class MainActivity extends AppCompatActivity implements RecyclerViewAdapter.RecyclerViewAdapterOnClickHandler {
-    private static final int DEFAULT_COLUMNS = 2;
+    private static final int DEFAULT_SIZE = 180;
     private String queryType = "/top_rated?";
     private RecyclerView recyclerView;
     private RecyclerViewAdapter recyclerViewAdapter;
@@ -34,8 +34,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         setContentView(R.layout.activity_main);
 
         recyclerView = findViewById(R.id.rv_data);
-        int numberOfColumns = DEFAULT_COLUMNS;
-        numberOfColumns = calculateColumns(this);
+        int numberOfColumns = calculateColumns(this);
         // Set the gridLayoutManager on recyclerView
         recyclerView.setLayoutManager(new GridLayoutManager(this, numberOfColumns));
         recyclerView.setHasFixedSize(true);
@@ -97,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     public static int calculateColumns(Context context) {
             DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
             float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
-            int numberColumns = (int) (dpWidth / 180);
+            int numberColumns = (int) (dpWidth / DEFAULT_SIZE);
             return numberColumns;
         }
 

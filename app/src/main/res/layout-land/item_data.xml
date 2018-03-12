@@ -6,7 +6,7 @@
 
     <ImageView
         android:id="@+id/iv_small_poster"
-        android:layout_width="@dimen/iv_width"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         android:contentDescription="@string/image_description"

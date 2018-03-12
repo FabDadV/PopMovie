@@ -17,7 +17,7 @@ import com.squareup.picasso.Picasso;
 
 // Creates a RecyclerView Adapter:
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{
-    private static final String MOVIE_URL = "http://image.tmdb.org/t/p/w185";
+    private static final String MOVIE_URL = "http://image.tmdb.org/t/p/w342";
     public Movie[] movieList;
     // An on-click handler that we've defined to make it easy for an Activity to interface with our RecyclerView
     private final RecyclerViewAdapterOnClickHandler mClickHandler;
