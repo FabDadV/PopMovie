@@ -33,8 +33,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
      * Cache of the children views for a list item.
      */
     public class ViewHolder extends RecyclerView.ViewHolder implements OnClickListener {
-//        public final TextView mData;
-        private ImageView ivPoster;
+//        private ImageView ivPoster;
         private TextView tvPosterPath;
         private TextView tvTitle;
         private TextView tvOverview;
@@ -47,7 +46,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 // Using itemView.findViewById, get a reference to these layout's TextViews and save it.
         public ViewHolder(View itemView) {
             super(itemView);
-//            mData = itemView.findViewById(R.id.tv_data);
+//            ivPoster = itemView.findViewById(R.id.iv_small_poster);
             tvPosterPath = itemView.findViewById(R.id.tv_poster);
             tvTitle = itemView.findViewById(R.id.tv_title);
             tvOverview = itemView.findViewById(R.id.tv_overview);
@@ -62,7 +61,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         @Override
         public void onClick(View v) {
             int adapterPosition = getAdapterPosition();
-//            Movie movieDetail = movieList[adapterPosition];
             mClickHandler.onClick(adapterPosition);
         }
     }
