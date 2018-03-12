@@ -20,7 +20,6 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
 
         ImageView ivPoster = findViewById(R.id.iv_poster);
-        TextView tvPosterPath = findViewById(R.id.tv_detail_poster);
         TextView tvTitle = findViewById(R.id.tv_detail_title);
         TextView tvOverview = findViewById(R.id.tv_detail_overview);
         TextView tvVote = findViewById(R.id.tv_detail_vote);
@@ -47,7 +46,6 @@ public class DetailActivity extends AppCompatActivity {
                 .load(posterUrl)
                 .into(ivPoster);
 
-        tvPosterPath.setText(mPosterPath);
         tvTitle.setText(mTitle);
         tvOverview.setText(mOverview);
         tvVote.setText(mVote);
