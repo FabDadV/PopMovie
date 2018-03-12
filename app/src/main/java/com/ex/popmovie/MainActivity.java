@@ -1,11 +1,13 @@
 package com.ex.popmovie;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +23,7 @@ import com.ex.popmovie.utilities.JsonUtils;
 import static com.ex.popmovie.DetailActivity.EXTRA_OBJECT;
 
 public class MainActivity extends AppCompatActivity implements RecyclerViewAdapter.RecyclerViewAdapterOnClickHandler {
+    private static final int DEFAULT_COLUMNS = 2;
     private String queryType = "/top_rated?";
     private RecyclerView recyclerView;
     private RecyclerViewAdapter recyclerViewAdapter;
@@ -31,9 +34,10 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         setContentView(R.layout.activity_main);
 
         recyclerView = findViewById(R.id.rv_data);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        // Set the layoutManager on recyclerView
-        recyclerView.setLayoutManager(layoutManager);
+        int numberOfColumns = DEFAULT_COLUMNS;
+        numberOfColumns = calculateColumns(this);
+        // Set the gridLayoutManager on recyclerView
+        recyclerView.setLayoutManager(new GridLayoutManager(this, numberOfColumns));
         recyclerView.setHasFixedSize(true);
         recyclerViewAdapter = new RecyclerViewAdapter(this);
         recyclerView.setAdapter(recyclerViewAdapter);
@@ -87,6 +91,15 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         intent.putExtra(EXTRA_OBJECT, markMovie);
         startActivity(intent);
     }
+/* https://stackoverflow.com/questions/33575731/gridlayoutmanager-how-to-auto-fit-columns
+ * calculate number of columns in GridLayoutManager
+ */
+    public static int calculateColumns(Context context) {
+            DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+            float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
+            int numberColumns = (int) (dpWidth / 180);
+            return numberColumns;
+        }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

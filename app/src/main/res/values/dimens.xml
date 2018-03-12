@@ -4,10 +4,10 @@
     <dimen name="tv_margin_plus">16dp</dimen>
     <dimen name="tv_margin_start">48dp</dimen>
     <dimen name="tv_padding">8dp</dimen>
-    <dimen name="tv_textSize">14sp</dimen>
-    <dimen name="tv_textSizeTitle">24sp</dimen>
+    <dimen name="tv_textSize">12sp</dimen>
+    <dimen name="tv_textSizeTitle">16sp</dimen>
     <dimen name="iv_small_height">250dp</dimen>
     <dimen name="iv_small_width">250dp</dimen>
-    <dimen name="iv_height">350dp</dimen>
+    <dimen name="iv_height">250dp</dimen>
     <dimen name="iv_width">270dp</dimen>
 </resources>
