@@ -10,13 +10,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.ex.popmovie.MainActivity;
 import com.ex.popmovie.R;
 import com.ex.popmovie.data.Movie;
+import com.squareup.picasso.Picasso;
 
 // Creates a RecyclerView Adapter:
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{
+    private static final String MOVIE_URL = "http://image.tmdb.org/t/p/w185";
     public Movie[] movieList;
-
     // An on-click handler that we've defined to make it easy for an Activity to interface with our RecyclerView
     private final RecyclerViewAdapterOnClickHandler mClickHandler;
     // The interface that receives onClick messages.
@@ -33,28 +35,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
      * Cache of the children views for a list item.
      */
     public class ViewHolder extends RecyclerView.ViewHolder implements OnClickListener {
-//        private ImageView ivPoster;
-        private TextView tvPosterPath;
-        private TextView tvTitle;
-        private TextView tvOverview;
-        private TextView tvVote;
-        private TextView tvPop;
-        private TextView tvReleaseDate;
-        private TextView tvIdMovie;
+        private ImageView ivPoster;
 // Create a constructor for this class that accepts a View as a parameter
 // Call super(itemView)
 // Using itemView.findViewById, get a reference to these layout's TextViews and save it.
         public ViewHolder(View itemView) {
             super(itemView);
-//            ivPoster = itemView.findViewById(R.id.iv_small_poster);
-            tvPosterPath = itemView.findViewById(R.id.tv_poster);
-            tvTitle = itemView.findViewById(R.id.tv_title);
-            tvOverview = itemView.findViewById(R.id.tv_overview);
-            tvVote = itemView.findViewById(R.id.tv_vote);
-            tvPop = itemView.findViewById(R.id.tv_pop);
-            tvReleaseDate = itemView.findViewById(R.id.tv_release);
-            tvIdMovie = itemView.findViewById(R.id.tv_id);
-
+            ivPoster = itemView.findViewById(R.id.iv_small_poster);
             itemView.setOnClickListener(this);
         }
         // This gets called by the child views during a click. @param v The View that was clicked
@@ -84,7 +71,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         int layoutIdForListItem = R.layout.item_data;
         LayoutInflater inflater = LayoutInflater.from(context);
 //        boolean shouldAttachToParentImmediately = false; // don't attach to parent immediately
-
         View view = inflater.inflate(layoutIdForListItem, viewGroup, false);
         return new ViewHolder(view);
     }
@@ -102,13 +88,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
         Movie dataMovie = movieList[position];
-        viewHolder.tvPosterPath.setText(dataMovie.getPosterPath());
-        viewHolder.tvTitle.setText(dataMovie.getTitle());
-        viewHolder.tvOverview.setText(dataMovie.getOverview());
-        viewHolder.tvVote.setText(dataMovie.getVote());
-        viewHolder.tvPop.setText(dataMovie.getPop());
-        viewHolder.tvReleaseDate.setText(dataMovie.getReleaseDate());
-        viewHolder.tvIdMovie.setText(dataMovie.getIdMovie());
+        String posterUrl = MOVIE_URL + dataMovie.getPosterPath();
+        Picasso.with(viewHolder.itemView.getContext())
+                .load(posterUrl)
+                .into(viewHolder.ivPoster);
     }
     // Override getItemCount
     // Return 0 if mList is null, or the size of mList if it is not null
