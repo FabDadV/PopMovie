@@ -24,7 +24,9 @@ import static com.ex.popmovie.DetailActivity.EXTRA_OBJECT;
 
 public class MainActivity extends AppCompatActivity implements RecyclerViewAdapter.RecyclerViewAdapterOnClickHandler {
     private static final int DEFAULT_SIZE = 180;
-    private String queryType = "/top_rated?";
+    private static final String POPULAR = "/popular?";
+    private static final String TOP_RATED = "/top_rated?";
+    private String queryType = TOP_RATED;
     private RecyclerView recyclerView;
     private RecyclerViewAdapter recyclerViewAdapter;
 
@@ -110,13 +112,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemThatWasClickedId = item.getItemId();
         if (itemThatWasClickedId == R.id.menu_pop) {
-            queryType = "/popular?";
-            loadData(queryType);
+            loadData(POPULAR);
             return true;
         }
         if (itemThatWasClickedId == R.id.menu_rate) {
-            queryType = "/top_rated?";
-            loadData(queryType);
+            loadData(TOP_RATED);
             return true;
         }
         return super.onOptionsItemSelected(item);
