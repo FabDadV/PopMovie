@@ -8,9 +8,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.ex.popmovie.MainActivity;
 import com.ex.popmovie.R;
 import com.ex.popmovie.data.Movie;
 import com.squareup.picasso.Picasso;
@@ -57,7 +55,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     /**
      * This gets called when each new ViewHolder is created. This happens when the RecyclerView
      * is laid out. Enough ViewHolders will be created to fill the screen and allow for scrolling.
-     * @param viewGroup The ViewGroup that these ViewHolders are contained within.
+     * @param parent The ViewGroup that these ViewHolders are contained within.
      * @param viewType  If your RecyclerView has more than one type of item (which ours doesn't) you
      *                  can use this viewType integer to provide a different layout. See
      *                  {@link android.support.v7.widget.RecyclerView.Adapter#getItemViewType(int)}
@@ -66,12 +64,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
      */
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-        Context context = viewGroup.getContext();
-        int layoutIdForListItem = R.layout.item_data;
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        Context context = parent.getContext();
+        int layoutIdForListItem = R.layout.item_list;
         LayoutInflater inflater = LayoutInflater.from(context);
 //        boolean shouldAttachToParentImmediately = false; // don't attach to parent immediately
-        View view = inflater.inflate(layoutIdForListItem, viewGroup, false);
+        View view = inflater.inflate(layoutIdForListItem, parent, false);
         return new ViewHolder(view);
     }
     // Override onBindViewHolder
@@ -102,7 +100,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
      */
     @Override
     public int getItemCount() {
-        if (null == movieList) return 0;
+        if (movieList == null) return 0;
         return movieList.length;
     }
     /**
