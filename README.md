@@ -1,5 +1,6 @@
 # PopMovie
-Android Developer Nanodegree Program (Google-Udacity Scholarship 2018) 
+Android Developer Nanodegree Program. (Google-Udacity Scholarship 2018)
+
 LearningProject
 App PopMovie show movie collection from The Movie database (TMDb).
 Details view:
