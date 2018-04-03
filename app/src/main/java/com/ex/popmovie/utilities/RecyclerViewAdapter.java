@@ -33,11 +33,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
      * Cache of the children views for a list item.
      */
     public class ViewHolder extends RecyclerView.ViewHolder implements OnClickListener {
-        private ImageView ivPoster;
+        private final ImageView ivPoster;
 // Create a constructor for this class that accepts a View as a parameter
 // Call super(itemView)
 // Using itemView.findViewById, get a reference to these layout's TextViews and save it.
-        public ViewHolder(View itemView) {
+ViewHolder(View itemView) {
             super(itemView);
             ivPoster = itemView.findViewById(R.id.iv_small_poster);
             itemView.setOnClickListener(this);
@@ -108,7 +108,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
      * This is handy when we get new data from the web but don't want to create a new RecyclerViewAdapter to display it.
      *   The new data to be displayed.
      */
-    // Create a setList method that saves the responceData to mList
+    // Create a setList method that saves the movies to mList
     public void setList(Movie[] movies) {
         movieList = movies;
         notifyDataSetChanged(); // After you save movieList, call notifyDataSetChanged

@@ -1,7 +1,7 @@
 package com.ex.popmovie;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ex.popmovie.data.Movie;
 import com.squareup.picasso.Picasso;
@@ -27,7 +26,7 @@ public class DetailFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_detail, container, false);
@@ -67,9 +66,5 @@ public class DetailFragment extends Fragment {
         tvIdMovie.setText(mIdMovie);
 
         return v;
-    }
-    private void closeOnError() {
-        getActivity().finish();
-        Toast.makeText(getContext(), R.string.detail_error_message, Toast.LENGTH_SHORT).show();
     }
 }

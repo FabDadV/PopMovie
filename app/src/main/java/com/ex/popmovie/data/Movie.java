@@ -37,7 +37,7 @@ public class Movie implements Parcelable {
     }
 */
 
-    public Movie(Parcel in) {
+    private Movie(Parcel in) {
         String[] data = new String[7];
         in.readStringArray(data);
         this.idMovie = data[0];
