@@ -37,7 +37,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 // Create a constructor for this class that accepts a View as a parameter
 // Call super(itemView)
 // Using itemView.findViewById, get a reference to these layout's TextViews and save it.
-ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
             ivPoster = itemView.findViewById(R.id.iv_small_poster);
             itemView.setOnClickListener(this);

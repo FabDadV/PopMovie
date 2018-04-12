@@ -9,19 +9,20 @@
 
     <ImageView
         android:id="@+id/iv_poster"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/iv_height"
+        android:layout_width="@dimen/iv_width"
+        android:layout_height="match_parent"
         android:contentDescription="@string/image_description"
-        android:scaleType="fitCenter" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_detail_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/tv_textSizeTitle"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_poster"
         app:layout_constraintEnd_toStartOf="@+id/imgButton_fav"
-        app:layout_constraintTop_toBottomOf="@+id/iv_poster" />
+        app:layout_constraintTop_toBottomOf="parent" />
 
     <ImageButton
         android:id="@+id/imgButton_fav"
@@ -30,14 +31,14 @@
         android:layout_marginEnd="@dimen/tv_margin"
         android:layout_marginRight="@dimen/tv_margin"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_poster"
+        app:layout_constraintTop_toBottomOf="parent"
         app:srcCompat="@drawable/ic_favorite_border_24dp" />
 
     <TextView
         android:id="@+id/tv_detail_release"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_poster"
         app:layout_constraintEnd_toStartOf="@+id/imgButton_fav"
         app:layout_constraintTop_toBottomOf="@+id/tv_detail_title" />
 
@@ -45,9 +46,9 @@
         android:id="@+id/tv_detail_overview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/tv_margin"
-        android:padding="@dimen/tv_padding"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="@dimen/tv_margin"
+        android:layout_marginLeft="@dimen/tv_margin"
+        app:layout_constraintStart_toEndOf="@+id/iv_poster"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_detail_release" />
 
@@ -55,10 +56,10 @@
         android:id="@+id/tv_label_vote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/label_vote"
         android:layout_marginStart="@dimen/tv_margin"
         android:layout_marginLeft="@dimen/tv_margin"
-        android:text="@string/label_vote"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_poster"
         app:layout_constraintTop_toBottomOf="@+id/tv_detail_overview" />
 
     <TextView
@@ -67,16 +68,16 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/tv_margin"
         android:layout_marginLeft="@dimen/tv_margin"
-        app:layout_constraintTop_toBottomOf="@+id/tv_detail_overview"
-        app:layout_constraintStart_toEndOf="@+id/tv_label_vote" />
+        app:layout_constraintStart_toEndOf="@+id/tv_label_vote"
+        app:layout_constraintTop_toBottomOf="@+id/tv_detail_overview" />
 
     <TextView
         android:id="@+id/tv_label_pop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/tv_margin_start"
-        android:layout_marginLeft="@dimen/tv_margin_start"
         android:text="@string/label_pop"
+        android:layout_marginStart="@dimen/tv_margin"
+        android:layout_marginLeft="@dimen/tv_margin"
         app:layout_constraintStart_toEndOf="@+id/tv_detail_vote"
         app:layout_constraintTop_toBottomOf="@+id/tv_detail_overview" />
 
@@ -86,8 +87,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/tv_margin"
         android:layout_marginLeft="@dimen/tv_margin"
-        app:layout_constraintTop_toBottomOf="@+id/tv_detail_overview"
-        app:layout_constraintStart_toEndOf="@+id/tv_label_pop" />
+        app:layout_constraintStart_toEndOf="@+id/tv_label_pop"
+        app:layout_constraintTop_toBottomOf="@+id/tv_detail_overview" />
 
     <TextView
         android:id="@+id/tv_detail_id"
@@ -98,4 +99,3 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
-

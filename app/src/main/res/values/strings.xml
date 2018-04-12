@@ -1,8 +1,13 @@
 <resources>
     <string name="app_name">PopMovie</string>
-    <string name="key_api">API_KEY</string>
+    <string name="key_api"></string>
     <string name="detail_error_message">Error in Detail activity</string>
     <string name="detail_error_context">Null Context List fragment</string>
+    <string name="invalid_query_uri">Invalid query Uri</string>
+    <string name="invalid_update_uri">Invalid update Uri</string>
+    <string name="invalid_delete_uri">Invalid delete Uri</string>
+    <string name="invalid_insert_uri">Invalid insert Uri</string>
+    <string name="insert_failed">Insert failed</string>
 
     <string name="top_pop">Most popular</string>
     <string name="top_rated">Top rated</string>
