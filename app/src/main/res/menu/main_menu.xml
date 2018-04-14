@@ -5,9 +5,17 @@
     <item
         android:id="@+id/menu_pop"
         android:title="@string/top_pop"
+        android:orderInCategory="1"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/menu_rate"
         android:title="@string/top_rated"
+        android:orderInCategory="2"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menu_fav"
+        android:icon="@drawable/ic_favorite_red_24dp"
+        android:orderInCategory="3"
+        android:title="@string/top_fav"
         app:showAsAction="ifRoom" />
 </menu>

@@ -37,7 +37,6 @@ public class DetailFragment extends Fragment         {
     public DetailFragment() {
         // Required empty public constructor
     }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -52,7 +51,6 @@ public class DetailFragment extends Fragment         {
         TextView tvPop = v.findViewById(R.id.tv_detail_pop);
         TextView tvReleaseDate = v.findViewById(R.id.tv_detail_release);
         TextView tvIdMovie = v.findViewById(R.id.tv_detail_id);
-
         //        Intent intent = getActivity().getIntent();
         // (2) Display the data that was passed from MainActivity
 //        if (intent == null) { closeOnError(); return; }
@@ -145,8 +143,7 @@ public class DetailFragment extends Fragment         {
     // saves Favorite movie information to the database
     private void deleteFavMovie(String id) {
         // delete movie with id from Favorite movie's database
-      getActivity().getContentResolver().delete(MovieContract.MovieTable.CONTENT_URI,
-                MovieContract.MovieTable.COLUMN_ID_MOVIE + "=" + id,null);
+      int rowsDelete = getActivity().getContentResolver().delete(MovieContract.MovieTable.CONTENT_URI,
+                MovieContract.MovieTable.COLUMN_ID_MOVIE + " = ?" ,new String[] {id});
     }
-
 }

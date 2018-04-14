@@ -109,6 +109,41 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
         }
     }
 
+
+    // Create a class that extends AsyncTask to perform db request
+    @SuppressLint("StaticFieldLeak")
+    class loadFav extends AsyncTask<String, Void, Movie[]> {
+        // Override the doInBackground method to perform your network requests
+        @Override
+        protected Movie[] doInBackground(String... params) {
+            if (params.length == 0) {
+                return null;
+            }
+            String apiKey = params[0];
+            String queryType = params[1];
+            URL requestUrl = NetworkUtils.buildUrl(apiKey, queryType);
+            try {
+                String jsonResponse = NetworkUtils.getResponseFromHttpUrl(requestUrl);
+                return JsonUtils.parseJson(jsonResponse);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        // Override the onPostExecute method to display the results of the network request
+        @Override
+        protected void onPostExecute(Movie[] movieList) {
+            if (movieList != null) {
+                recyclerView.setVisibility(View.VISIBLE);
+                // Instead of iterating through every string, use recyclerViewAdapter.setList and pass in data
+                recyclerViewAdapter.setList(movieList);
+            } else {
+                Toast.makeText(getActivity(), "ErrorQuery. Check out correct api_key", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
     // Override method in order to handle RecyclerView item clicks.
     public void onClick(int position) {
         Intent intent = new Intent(getActivity(), DetailActivity.class);
@@ -146,6 +181,9 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
                 return true;
             case R.id.menu_rate:
                 loadData(TOP_RATED);
+                return true;
+            case R.id.menu_fav:
+                loadFav();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
