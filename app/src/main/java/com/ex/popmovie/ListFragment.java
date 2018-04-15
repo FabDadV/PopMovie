@@ -34,6 +34,7 @@ import static com.ex.popmovie.DetailFragment.EXTRA_OBJECT;
 public class ListFragment extends Fragment implements RecyclerViewAdapter.RecyclerViewAdapterOnClickHandler {
     private static final String POPULAR = "/popular?";
     private static final String TOP_RATED = "/top_rated?";
+    private static final int DEFAULT_COUNT = 10;
     private static final int DEFAULT_SIZE = 180;
     private RecyclerView recyclerView;
     private RecyclerViewAdapter recyclerViewAdapter;
@@ -111,20 +112,19 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
 
 
     // Create a class that extends AsyncTask to perform db request
-    @SuppressLint("StaticFieldLeak")
-    class loadFav extends AsyncTask<String, Void, Movie[]> {
+    class loadDb extends AsyncTask<String, Void, Movie[]> {
         // Override the doInBackground method to perform your network requests
         @Override
         protected Movie[] doInBackground(String... params) {
             if (params.length == 0) {
                 return null;
             }
-            String apiKey = params[0];
-            String queryType = params[1];
-            URL requestUrl = NetworkUtils.buildUrl(apiKey, queryType);
             try {
+                return null;
+/*
                 String jsonResponse = NetworkUtils.getResponseFromHttpUrl(requestUrl);
                 return JsonUtils.parseJson(jsonResponse);
+*/
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -183,7 +183,7 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
                 loadData(TOP_RATED);
                 return true;
             case R.id.menu_fav:
-                loadFav();
+                new loadDb().execute();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

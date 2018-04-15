@@ -17,5 +17,5 @@
         android:icon="@drawable/ic_favorite_red_24dp"
         android:orderInCategory="3"
         android:title="@string/top_fav"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
 </menu>

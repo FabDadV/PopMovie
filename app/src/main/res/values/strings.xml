@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">PopMovie</string>
-    <string name="key_api"></string>
+    <string name="key_api">50ad415f5694497a5163b2233705daa1</string>
     <string name="detail_error_message">Error in Detail activity</string>
     <string name="detail_error_context">Null Context List fragment</string>
     <string name="invalid_query_uri">Invalid query Uri</string>
@@ -9,13 +9,13 @@
     <string name="invalid_insert_uri">Invalid insert Uri</string>
     <string name="insert_failed">Insert failed</string>
 
-    <string name="top_pop">Most popular</string>
-    <string name="top_rated">Top rated</string>
-    <string name="top_fav">Favorite</string>
+    <string name="top_pop">Pop</string>
+    <string name="top_rated">Top</string>
+    <string name="top_fav">Fav</string>
 
     <string name="image_description">Movie</string>
     <string name="label_overview">Overview</string>
-    <string name="label_vote">Rating: </string>
+    <string name="label_vote">Top rating: </string>
     <string name="label_pop">Popularity: </string>
     <string name="label_release">Release date:</string>
 </resources>
