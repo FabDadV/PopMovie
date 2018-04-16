@@ -5,6 +5,8 @@ import java.net.URL;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -47,15 +49,18 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        if(!isInternet()) {
+            Toast.makeText(getActivity(), "No Internet. Check out Internet connection", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_list, container, false);
 
-        recyclerView = v.findViewById(R.id.rv_list);
+        recyclerView = view.findViewById(R.id.rv_list);
         Context context = getContext();
         if(context == null) closeOnError();
         int numberOfColumns = calculateColumns(getContext());
@@ -65,10 +70,9 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
         recyclerViewAdapter = new RecyclerViewAdapter(this);
         recyclerView.setAdapter(recyclerViewAdapter);
 
-        // Call loadData to perform the network request to get data
-        loadData(TOP_RATED);
-
-        return v;
+        // Call loadFavMovies to perform the request to Favorite movies database
+        loadFavMovies();
+        return view;
     }
 
     private void loadData(String queryType) {
@@ -164,6 +168,13 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
         return (int) (dpWidth / DEFAULT_SIZE);
+    }
+
+    private boolean isInternet() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo info = connectivityManager.getActiveNetworkInfo();
+        return info != null && info.isConnected();
     }
 
     private void closeOnError() {
