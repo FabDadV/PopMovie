@@ -2,9 +2,9 @@ package com.ex.popmovie;
 
 import java.net.URL;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.ex.popmovie.data.Movie;
+import com.ex.popmovie.data.MovieContract;
 import com.ex.popmovie.utilities.JsonUtils;
 import com.ex.popmovie.utilities.NetworkUtils;
 import com.ex.popmovie.utilities.RecyclerViewAdapter;
@@ -34,7 +35,6 @@ import static com.ex.popmovie.DetailFragment.EXTRA_OBJECT;
 public class ListFragment extends Fragment implements RecyclerViewAdapter.RecyclerViewAdapterOnClickHandler {
     private static final String POPULAR = "/popular?";
     private static final String TOP_RATED = "/top_rated?";
-    private static final int DEFAULT_COUNT = 10;
     private static final int DEFAULT_SIZE = 180;
     private RecyclerView recyclerView;
     private RecyclerViewAdapter recyclerViewAdapter;
@@ -77,7 +77,6 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
     }
 
     // Create a class that extends AsyncTask to perform network requests
-    @SuppressLint("StaticFieldLeak")
     class QueryAsyncTask extends AsyncTask<String, Void, Movie[]> {
         // Override the doInBackground method to perform your network requests
         @Override
@@ -110,38 +109,43 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
         }
     }
 
-
-    // Create a class that extends AsyncTask to perform db request
-    class loadDb extends AsyncTask<String, Void, Movie[]> {
-        // Override the doInBackground method to perform your network requests
-        @Override
-        protected Movie[] doInBackground(String... params) {
-            if (params.length == 0) {
-                return null;
-            }
-            try {
-                return null;
-/*
-                String jsonResponse = NetworkUtils.getResponseFromHttpUrl(requestUrl);
-                return JsonUtils.parseJson(jsonResponse);
-*/
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
+    // Perform db request
+    private void loadFavMovies() {
+        Cursor cursor = getActivity().getContentResolver().query(
+                MovieContract.MovieTable.CONTENT_URI,
+                null, null, null, null);
+        cursor.moveToFirst();
+        Movie[] movieList = new Movie[cursor.getCount()];
+        int i = 0;
+        while (!cursor.isAfterLast()) {
+            movieList[i] = getMovie(cursor, i);
+            cursor.moveToNext();
+            i++;
         }
+        cursor.close();
 
-        // Override the onPostExecute method to display the results of the network request
-        @Override
-        protected void onPostExecute(Movie[] movieList) {
-            if (movieList != null) {
-                recyclerView.setVisibility(View.VISIBLE);
-                // Instead of iterating through every string, use recyclerViewAdapter.setList and pass in data
-                recyclerViewAdapter.setList(movieList);
-            } else {
-                Toast.makeText(getActivity(), "ErrorQuery. Check out correct api_key", Toast.LENGTH_SHORT).show();
-            }
+        if (movieList != null) {
+            recyclerView.setVisibility(View.VISIBLE);
+            // Instead of iterating through every string, use recyclerViewAdapter.setList and pass in data
+            recyclerViewAdapter.setList(movieList);
+        } else {
+            Toast.makeText(getActivity(), "ErrorQuery. Check out correct api_key", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private Movie getMovie(@NonNull Cursor cursor, int position) {
+        Movie movie = null;
+        if (cursor.moveToPosition(position)) {
+            movie = new Movie();
+            movie.setIdMovie(cursor.getString(cursor.getColumnIndex(MovieContract.MovieTable.COLUMN_ID_MOVIE)));
+            movie.setTitle(cursor.getString(cursor.getColumnIndex(MovieContract.MovieTable.COLUMN_TITLE)));
+            movie.setPosterPath(cursor.getString(cursor.getColumnIndex(MovieContract.MovieTable.COLUMN_POSTER_PATH)));
+            movie.setOverview(cursor.getString(cursor.getColumnIndex(MovieContract.MovieTable.COLUMN_OVERVIEW)));
+            movie.setVote(cursor.getString(cursor.getColumnIndex(MovieContract.MovieTable.COLUMN_VOTE)));
+            movie.setPop(cursor.getString(cursor.getColumnIndex(MovieContract.MovieTable.COLUMN_POP)));
+            movie.setReleaseDate(cursor.getString(cursor.getColumnIndex(MovieContract.MovieTable.COLUMN_RELEASE)));
+        }
+        return movie;
     }
 
     // Override method in order to handle RecyclerView item clicks.
@@ -183,7 +187,7 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
                 loadData(TOP_RATED);
                 return true;
             case R.id.menu_fav:
-                new loadDb().execute();
+                loadFavMovies();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
