@@ -29,6 +29,8 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 
+import android.support.annotation.NonNull;
+
 import com.ex.popmovie.R;
 import com.ex.popmovie.data.MovieContract.MovieTable;
 
@@ -54,7 +56,7 @@ public class DbContentProvider extends ContentProvider {
     }
 
     @Override
-    public Cursor query(Uri uri, String[] projection, String selection,
+    public Cursor query(@NonNull Uri uri, String[] projection, String selection,
                         String[] selectionArgs, String sortOrder) {
         // Implement this to handle query requests from clients,
         // create SQLiteQueryBuilder for querying movies table
@@ -81,9 +83,9 @@ public class DbContentProvider extends ContentProvider {
     }
 
     @Override
-    public Uri insert(Uri uri, ContentValues values) {
+    public Uri insert(@NonNull Uri uri, ContentValues values) {
         // Implement this to handle requests to insert a new row.
-        Uri newMovieUri = null;
+        Uri newMovieUri;
 
         switch (uriMatcher.match(uri)) {
             case MOVIES:
@@ -109,7 +111,7 @@ public class DbContentProvider extends ContentProvider {
     }
 
     @Override
-    public int update(Uri uri, ContentValues values, String selection,
+    public int update(@NonNull Uri uri, ContentValues values, String selection,
                       String[] selectionArgs) {
         // Implement this to handle requests to update one or more rows.
         int numberOfRowsUpdated; // 1 if update successful; 0 otherwise
@@ -135,7 +137,7 @@ public class DbContentProvider extends ContentProvider {
     }
 
     @Override
-    public int delete(Uri uri, String selection, String[] selectionArgs) {
+    public int delete(@NonNull Uri uri, String selection, String[] selectionArgs) {
         // Implement this to handle requests to delete one or more rows.
         int numberOfRowsDeleted;
 
@@ -159,7 +161,7 @@ public class DbContentProvider extends ContentProvider {
     }
 
     @Override
-    public String getType(Uri uri) {
+    public String getType(@NonNull Uri uri) {
         // Implement this to handle requests for the MIME type of the data at the given URI.
 //        throw new UnsupportedOperationException("Not yet implemented");
         return null;

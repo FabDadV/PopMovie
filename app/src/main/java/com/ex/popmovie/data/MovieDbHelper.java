@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**************************************************************************
+/* ************************************************************************
  * (C) Copyright 1992-2016 by Deitel & Associates, Inc. and               *
  * Pearson Education, Inc. All Rights Reserved.                           *
  *                                                                        *
  ** Deitel & Associates, Inc. 2016 - Android 6 for Programmers (Samples) **
- **************************************************************************/
+ ************************************************************************** */
 package com.ex.popmovie.data;
 
 import android.content.Context;

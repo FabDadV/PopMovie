@@ -14,6 +14,9 @@
     <string name="top_fav">Fav</string>
 
     <string name="image_description">Movie</string>
+    <string name="image_fav">Fav</string>
+    <string name="image_play">Play</string>
+
     <string name="label_overview">Overview</string>
     <string name="label_vote">Top rating: </string>
     <string name="label_pop">Popularity: </string>

@@ -25,6 +25,7 @@
 
     <ImageButton
         android:id="@+id/imgButton_trailer"
+        android:contentDescription="@string/image_play"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/tv_margin"
@@ -35,6 +36,7 @@
 
     <ImageButton
         android:id="@+id/imgButton_fav"
+        android:contentDescription="@string/image_fav"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/tv_margin"

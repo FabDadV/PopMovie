@@ -84,7 +84,7 @@ public class DetailFragment extends Fragment {
             imgButtonFav.setImageResource(R.drawable.ic_favorite_red_24dp);
         } else {
             imgButtonFav.setImageResource(R.drawable.ic_favorite_border_24dp);
-        };
+        }
         imgButtonFav.setOnClickListener(
                 new View.OnClickListener() {
                     // displays the AddEditFragment when FAB is touched
@@ -118,20 +118,20 @@ public class DetailFragment extends Fragment {
         } else {
             isFav = true;
             saveFavMovie();
-        };
+        }
         return isFav;
     }
     // saves Favorite movie information to the database
     private void saveFavMovie() {
         // create ContentValues object containing movie's key-value pairs
         ContentValues contentValues = new ContentValues();
-        contentValues.put(MovieContract.MovieTable.COLUMN_TITLE, movieDetail.getTitle().toString());
-        contentValues.put(MovieContract.MovieTable.COLUMN_ID_MOVIE, movieDetail.getIdMovie().toString());
-        contentValues.put(MovieContract.MovieTable.COLUMN_POSTER_PATH, movieDetail.getPosterPath().toString());
-        contentValues.put(MovieContract.MovieTable.COLUMN_OVERVIEW, movieDetail.getOverview().toString());
-        contentValues.put(MovieContract.MovieTable.COLUMN_VOTE, movieDetail.getVote().toString());
-        contentValues.put(MovieContract.MovieTable.COLUMN_POP, movieDetail.getPop().toString());
-        contentValues.put(MovieContract.MovieTable.COLUMN_RELEASE, movieDetail.getReleaseDate().toString());
+        contentValues.put(MovieContract.MovieTable.COLUMN_TITLE, movieDetail.getTitle());
+        contentValues.put(MovieContract.MovieTable.COLUMN_ID_MOVIE, movieDetail.getIdMovie());
+        contentValues.put(MovieContract.MovieTable.COLUMN_POSTER_PATH, movieDetail.getPosterPath());
+        contentValues.put(MovieContract.MovieTable.COLUMN_OVERVIEW, movieDetail.getOverview());
+        contentValues.put(MovieContract.MovieTable.COLUMN_VOTE, movieDetail.getVote());
+        contentValues.put(MovieContract.MovieTable.COLUMN_POP, movieDetail.getPop());
+        contentValues.put(MovieContract.MovieTable.COLUMN_RELEASE, movieDetail.getReleaseDate());
 
         Uri newMovieUri = getActivity().getContentResolver().insert(
                 MovieContract.MovieTable.CONTENT_URI, contentValues);
