@@ -24,7 +24,7 @@ import com.squareup.picasso.Picasso;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DetailFragment extends Fragment         {
+public class DetailFragment extends Fragment {
 //  implements LoaderManager.LoaderCallbacks<Cursor> ???
     private static final String MOVIE_URL = "http://image.tmdb.org/t/p/w185";
     public static final String EXTRA_OBJECT = "mark_movie";
@@ -42,15 +42,15 @@ public class DetailFragment extends Fragment         {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_detail, container, false);
+        View view = inflater.inflate(R.layout.fragment_detail, container, false);
 
-        ImageView ivPoster = v.findViewById(R.id.iv_poster);
-        TextView tvTitle = v.findViewById(R.id.tv_detail_title);
-        TextView tvOverview = v.findViewById(R.id.tv_detail_overview);
-        TextView tvVote = v.findViewById(R.id.tv_detail_vote);
-        TextView tvPop = v.findViewById(R.id.tv_detail_pop);
-        TextView tvReleaseDate = v.findViewById(R.id.tv_detail_release);
-        TextView tvIdMovie = v.findViewById(R.id.tv_detail_id);
+        ImageView ivPoster = view.findViewById(R.id.iv_poster);
+        TextView tvTitle = view.findViewById(R.id.tv_detail_title);
+        TextView tvOverview = view.findViewById(R.id.tv_detail_overview);
+        TextView tvVote = view.findViewById(R.id.tv_detail_vote);
+        TextView tvPop = view.findViewById(R.id.tv_detail_pop);
+        TextView tvReleaseDate = view.findViewById(R.id.tv_detail_release);
+        TextView tvIdMovie = view.findViewById(R.id.tv_detail_id);
         //        Intent intent = getActivity().getIntent();
         // (2) Display the data that was passed from MainActivity
 //        if (intent == null) { closeOnError(); return; }
@@ -78,25 +78,23 @@ public class DetailFragment extends Fragment         {
         tvIdMovie.setText(mIdMovie);
 
         // Add Button for Favorite movie:
-        ImageButton imgButtonFav = v.findViewById(R.id.imgButton_fav);
+        ImageButton imgButtonFav = view.findViewById(R.id.imgButton_fav);
         // check in Favorite movie
         if (checkIsFav(mIdMovie)) {
             imgButtonFav.setImageResource(R.drawable.ic_favorite_red_24dp);
         } else {
             imgButtonFav.setImageResource(R.drawable.ic_favorite_border_24dp);
         };
-
         imgButtonFav.setOnClickListener(
                 new View.OnClickListener() {
                     // displays the AddEditFragment when FAB is touched
                     @Override
-                    public void onClick(View view) {
+                    public void onClick(View v) {
                         updateFavMovie(mIdMovie); // save Favorite movie to the database
                     }
                 }
         );
-
-        return v;
+        return view;
     }
 
     private boolean checkIsFav(String id) {
@@ -112,8 +110,7 @@ public class DetailFragment extends Fragment         {
         cursor.close();
         return isFav;
     }
-
-    // update
+    // update Favorite movie database
     private boolean updateFavMovie(String id) {
         if(isFav) {
             isFav = false;
@@ -138,12 +135,19 @@ public class DetailFragment extends Fragment         {
 
         Uri newMovieUri = getActivity().getContentResolver().insert(
                 MovieContract.MovieTable.CONTENT_URI, contentValues);
+        Fragment fragment = getFragmentManager().findFragmentById(R.id.fragment_container);
+        ((ImageButton) fragment.getView().findViewById(R.id.imgButton_fav))
+                .setImageResource(R.drawable.ic_favorite_red_24dp);
     }
 
     // saves Favorite movie information to the database
     private void deleteFavMovie(String id) {
         // delete movie with id from Favorite movie's database
-      int rowsDelete = getActivity().getContentResolver().delete(MovieContract.MovieTable.CONTENT_URI,
+        int rowsDelete = getActivity().getContentResolver().delete(MovieContract.MovieTable.CONTENT_URI,
                 MovieContract.MovieTable.COLUMN_ID_MOVIE + " = ?" ,new String[] {id});
+
+        Fragment fragment = getFragmentManager().findFragmentById(R.id.fragment_container);
+        ((ImageButton) fragment.getView().findViewById(R.id.imgButton_fav))
+                .setImageResource(R.drawable.ic_favorite_border_24dp);
     }
 }
