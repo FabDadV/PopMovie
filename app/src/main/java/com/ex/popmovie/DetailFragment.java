@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,10 +19,15 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ex.popmovie.data.Movie;
 import com.ex.popmovie.data.MovieContract;
+import com.ex.popmovie.utilities.JsonUtils;
+import com.ex.popmovie.utilities.NetworkUtils;
 import com.squareup.picasso.Picasso;
+
+import java.net.URL;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +35,7 @@ import com.squareup.picasso.Picasso;
 public class DetailFragment extends Fragment {
 //  implements LoaderManager.LoaderCallbacks<Cursor> ???
     private static final String BASE_URL = "https://www.themoviedb.org/movie/";
+    private static final String YOUTUBE = "http://www.youtube.com/watch?v=";
     private static final String TRAILER = "/videos?";
     private static final String REVIEWS = "/reviews";
 
@@ -38,6 +45,7 @@ public class DetailFragment extends Fragment {
     private static final int MOVIE_LOADER = 0;
 
     boolean isFav = false;
+    String[] Keys = new String[20];
     Movie movieDetail;
 
     public DetailFragment() {
@@ -119,12 +127,6 @@ public class DetailFragment extends Fragment {
                     }
                 }
         );
-
-
-
-
-
-
         return view;
     }
 
@@ -182,9 +184,48 @@ public class DetailFragment extends Fragment {
     }
     // show Trailer:
     private void showTrailer(String id) {
-
+        String apiKey = getResources().getString(R.string.key_api);
+        String queryType = "/" + id + TRAILER;
+        new QueryTrailer().execute(apiKey, queryType);
+//        QueryTrailer(apiKey, queryType, Keys);
+        if(Keys[0] != null) {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(YOUTUBE + Keys[0])));
+        } else {
+            Keys[9] = "c38r-SAnTWM";
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(YOUTUBE + Keys[9])));
+        }
     }
-    // show Reviews:
+    // Create a class that extends AsyncTask to perform network requests
+    class QueryTrailer extends AsyncTask<String, Void, String []> {
+        // Override the doInBackground method to perform your network requests
+        @Override
+        protected String[] doInBackground(String... params) {
+            if (params.length == 0) {
+                return null;
+            }
+            String apiKey = params[0];
+            String queryType = params[1];
+            URL requestUrl = NetworkUtils.buildUrl(apiKey, queryType);
+            try {
+                String jsonResponse = NetworkUtils.getResponseFromHttpUrl(requestUrl);
+                Keys = JsonUtils.parseTrailer(jsonResponse);
+                return Keys;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+
+        }
+    }
+/*
+   private void QueryTrailer(String key, String query, String[] Keys) {
+        // Override the doInBackground method to perform your network requests
+            URL requestUrl = NetworkUtils.buildUrl(key, query);
+                String jsonResponse = NetworkUtils.getResponseFromHttpUrl(requestUrl);
+                JsonUtils.parseTrailer(jsonResponse, Keys);
+    }
+*/
+// show Reviews:
     private void showReviews(String id) {
         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(BASE_URL + id + REVIEWS)));
     }

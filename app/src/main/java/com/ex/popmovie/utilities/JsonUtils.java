@@ -51,4 +51,20 @@ public final class JsonUtils {
             return null;
         }
     }
+    public static String[] parseTrailer(String dataJsonStr) throws JSONException {
+        JSONObject dataJson = new JSONObject(dataJsonStr);
+        /* Is there an error? */
+        JSONArray dataArray = dataJson.getJSONArray("results");
+        String[] keyTrailer = new String[dataArray.length()];
+        try {
+            for (int i = 0; i < dataArray.length(); i++) {
+                JSONObject trailerJSON = dataArray.getJSONObject(i);
+                keyTrailer[i] = trailerJSON.getString("key");
+            }
+            return keyTrailer;
+        }   catch(Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

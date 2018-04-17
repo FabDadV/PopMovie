@@ -22,7 +22,7 @@
         android:textSize="@dimen/tv_textSizeTitle"
         app:layout_constraintStart_toEndOf="@+id/iv_poster"
         app:layout_constraintEnd_toStartOf="@+id/imgButton_fav"
-        app:layout_constraintTop_toBottomOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/imgButton_trailer"
@@ -32,7 +32,7 @@
         android:layout_marginEnd="@dimen/tv_margin"
         android:layout_marginRight="@dimen/tv_margin"
         app:layout_constraintEnd_toStartOf="@+id/imgButton_fav"
-        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_play_circle_outline_yellow_24dp" />
 
     <ImageButton
@@ -43,7 +43,7 @@
         android:layout_marginEnd="@dimen/tv_margin"
         android:layout_marginRight="@dimen/tv_margin"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_favorite_border_24dp" />
 
     <TextView
