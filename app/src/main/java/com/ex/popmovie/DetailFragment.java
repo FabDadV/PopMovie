@@ -190,9 +190,6 @@ public class DetailFragment extends Fragment {
 //        QueryTrailer(apiKey, queryType, Keys);
         if(Keys[0] != null) {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(YOUTUBE + Keys[0])));
-        } else {
-            Keys[9] = "c38r-SAnTWM";
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(YOUTUBE + Keys[9])));
         }
     }
     // Create a class that extends AsyncTask to perform network requests
