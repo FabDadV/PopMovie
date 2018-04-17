@@ -7,6 +7,10 @@ package com.ex.popmovie;
         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v="
                 + "c38r-SAnTWM")));
     }
+    // show Reviews:
+    private void showReviews(String id) {
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(BASE_URL + id + REVIEWS);
+    }
 
     // Create a class that extends AsyncTask to perform network requests
     class showTrailer extends AsyncTask<String, Void, Movie[]> {

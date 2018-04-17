@@ -1,6 +1,7 @@
 package com.ex.popmovie;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,6 +28,10 @@ import com.squareup.picasso.Picasso;
  */
 public class DetailFragment extends Fragment {
 //  implements LoaderManager.LoaderCallbacks<Cursor> ???
+    private static final String BASE_URL = "https://www.themoviedb.org/movie/";
+    private static final String TRAILER = "/videos?";
+    private static final String REVIEWS = "/reviews";
+
     private static final String MOVIE_URL = "http://image.tmdb.org/t/p/w185";
     public static final String EXTRA_OBJECT = "mark_movie";
     // constant used to identify the Loader
@@ -77,7 +83,7 @@ public class DetailFragment extends Fragment {
         tvReleaseDate.setText(mReleaseDate);
         tvIdMovie.setText(mIdMovie);
 
-        // Add Button for Favorite movie:
+        // Add ImageButton for Favorite movie:
         ImageButton imgButtonFav = view.findViewById(R.id.imgButton_fav);
         // check in Favorite movie
         if (checkIsFav(mIdMovie)) {
@@ -87,13 +93,38 @@ public class DetailFragment extends Fragment {
         }
         imgButtonFav.setOnClickListener(
                 new View.OnClickListener() {
-                    // displays the AddEditFragment when FAB is touched
                     @Override
                     public void onClick(View v) {
-                        updateFavMovie(mIdMovie); // save Favorite movie to the database
+                        updateFavMovie(mIdMovie); // update Favorite movie to the database
                     }
                 }
         );
+        // Add ImageButton for preview Trailer:
+        ImageButton imgButtonTrailer = view.findViewById(R.id.imgButton_trailer);
+        imgButtonTrailer.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showTrailer(mIdMovie);
+                    }
+                }
+        );
+        // Add Button for Reviews:
+        Button ButtonReviews = view.findViewById(R.id.b_reviews);
+        ButtonReviews.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showReviews(mIdMovie);
+                    }
+                }
+        );
+
+
+
+
+
+
         return view;
     }
 
@@ -139,7 +170,6 @@ public class DetailFragment extends Fragment {
         ((ImageButton) fragment.getView().findViewById(R.id.imgButton_fav))
                 .setImageResource(R.drawable.ic_favorite_red_24dp);
     }
-
     // saves Favorite movie information to the database
     private void deleteFavMovie(String id) {
         // delete movie with id from Favorite movie's database
@@ -149,5 +179,13 @@ public class DetailFragment extends Fragment {
         Fragment fragment = getFragmentManager().findFragmentById(R.id.fragment_container);
         ((ImageButton) fragment.getView().findViewById(R.id.imgButton_fav))
                 .setImageResource(R.drawable.ic_favorite_border_24dp);
+    }
+    // show Trailer:
+    private void showTrailer(String id) {
+
+    }
+    // show Reviews:
+    private void showReviews(String id) {
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(BASE_URL + id + REVIEWS)));
     }
 }

@@ -108,7 +108,7 @@
         android:layout_marginEnd="@dimen/tv_margin"
         android:layout_marginRight="@dimen/tv_margin"
         android:text="@string/button_reviews"
-        app:layout_constraintTop_toBottomOf="@+id/tv_detail_overview"
+        app:layout_constraintTop_toBottomOf="@+id/tv_detail_pop"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
