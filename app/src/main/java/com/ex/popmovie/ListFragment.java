@@ -30,7 +30,6 @@ import com.ex.popmovie.utilities.NetworkUtils;
 import com.ex.popmovie.utilities.RecyclerViewAdapter;
 
 import static com.ex.popmovie.DetailFragment.EXTRA_OBJECT;
-
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -44,7 +43,6 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
     public ListFragment() {
         // Required empty public constructor
     }
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +51,6 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
             Toast.makeText(getActivity(), "No Internet. Check out Internet connection", Toast.LENGTH_LONG).show();
         }
     }
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -99,7 +96,6 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
             }
             return null;
         }
-
         // Override the onPostExecute method to display the results of the network request
         @Override
         protected void onPostExecute(Movie[] movieList) {
@@ -112,7 +108,6 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
             }
         }
     }
-
     // Perform db request
     private void loadFavMovies() {
         Cursor cursor = getActivity().getContentResolver().query(
@@ -151,7 +146,6 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
         }
         return movie;
     }
-
     // Override method in order to handle RecyclerView item clicks.
     public void onClick(int position) {
         Intent intent = new Intent(getActivity(), DetailActivity.class);
@@ -160,7 +154,6 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
         intent.putExtra(EXTRA_OBJECT, markMovie);
         startActivity(intent);
     }
-
     /* https://stackoverflow.com/questions/33575731/gridlayoutmanager-how-to-auto-fit-columns
      * calculate number of columns in GridLayoutManager
      */
@@ -187,7 +180,6 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.main_menu, menu);
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
