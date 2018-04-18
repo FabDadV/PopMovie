@@ -139,9 +139,8 @@ public class DbContentProvider extends ContentProvider {
     @Override
     public int delete(@NonNull Uri uri, String selection, String[] selectionArgs) {
         // delete the movie
-        int numberOfRowsDeleted = dbHelper.getWritableDatabase().delete(
+        return dbHelper.getWritableDatabase().delete(
                 MovieTable.TABLE_NAME, selection, selectionArgs);
-        return numberOfRowsDeleted;
     }
 
     @Override

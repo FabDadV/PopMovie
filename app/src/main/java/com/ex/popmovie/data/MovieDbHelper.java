@@ -27,7 +27,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.ex.popmovie.data.MovieContract.*;
 
-public class MovieDbHelper extends SQLiteOpenHelper {
+class MovieDbHelper extends SQLiteOpenHelper {
 
     // Create datebase file name:
     private static final String DB_NAME = "FavMovie.db";

@@ -9,9 +9,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +16,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ex.popmovie.data.Movie;
 import com.ex.popmovie.data.MovieContract;
@@ -33,7 +29,6 @@ import java.net.URL;
  * A simple {@link Fragment} subclass.
  */
 public class DetailFragment extends Fragment {
-//  implements LoaderManager.LoaderCallbacks<Cursor> ???
     private static final String BASE_URL = "https://www.themoviedb.org/movie/";
     private static final String YOUTUBE = "http://www.youtube.com/watch?v=";
     private static final String TRAILER = "/videos?";
@@ -41,8 +36,6 @@ public class DetailFragment extends Fragment {
 
     private static final String MOVIE_URL = "http://image.tmdb.org/t/p/w185";
     public static final String EXTRA_OBJECT = "mark_movie";
-    // constant used to identify the Loader
-    private static final int MOVIE_LOADER = 0;
 
     boolean isFav = false;
     String[] Keys = new String[20];
