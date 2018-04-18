@@ -7,3 +7,5 @@ Details view:
 •	users can to read reviews of a selected movie;
 •	users can to sort by popularity and rating.
 User have to add youself API key in string API_KEY in file strings.xml
+Stage2:
+Add Favorite movie list and view Trailers & Reviews
