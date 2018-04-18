@@ -176,7 +176,7 @@ public class DetailFragment extends Fragment {
     private void deleteFavMovie(String id) {
         // delete movie with id from Favorite movie's database
         int rowsDelete = getActivity().getContentResolver().delete(MovieContract.MovieTable.CONTENT_URI,
-                MovieContract.MovieTable.COLUMN_ID_MOVIE + " = ?" ,new String[] {id});
+                MovieContract.MovieTable.COLUMN_ID_MOVIE + " = " + id ,null);
 
         Fragment fragment = getFragmentManager().findFragmentById(R.id.fragment_container);
         ((ImageButton) fragment.getView().findViewById(R.id.imgButton_fav))

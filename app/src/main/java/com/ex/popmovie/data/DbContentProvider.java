@@ -138,25 +138,9 @@ public class DbContentProvider extends ContentProvider {
 
     @Override
     public int delete(@NonNull Uri uri, String selection, String[] selectionArgs) {
-        // Implement this to handle requests to delete one or more rows.
-        int numberOfRowsDeleted;
-
-        switch (uriMatcher.match(uri)) {
-            case ONE_MOVIE:
-                // get from the uri the id of movie
-                String id = uri.getLastPathSegment();
-                // delete the movie
-                numberOfRowsDeleted = dbHelper.getWritableDatabase().delete(
-                        MovieTable.TABLE_NAME, MovieTable._ID + "=" + id, selectionArgs);
-                break;
-            default:
-                throw new UnsupportedOperationException(
-                        getContext().getString(R.string.invalid_delete_uri) + uri);
-        }
-        // notify observers that the database changed
-        if (numberOfRowsDeleted != 0) {
-            getContext().getContentResolver().notifyChange(uri, null);
-        }
+        // delete the movie
+        int numberOfRowsDeleted = dbHelper.getWritableDatabase().delete(
+                MovieTable.TABLE_NAME, selection, selectionArgs);
         return numberOfRowsDeleted;
     }
 
