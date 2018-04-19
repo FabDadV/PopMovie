@@ -36,12 +36,19 @@ import static com.ex.popmovie.DetailFragment.EXTRA_OBJECT;
 public class ListFragment extends Fragment implements RecyclerViewAdapter.RecyclerViewAdapterOnClickHandler {
     private static final String POPULAR = "/popular?";
     private static final String TOP_RATED = "/top_rated?";
+    private static final String MOVIE_SORT = "movie_sort";
     private static final int DEFAULT_SIZE = 180;
+    private String movieSort = POPULAR;
     private RecyclerView recyclerView;
     private RecyclerViewAdapter recyclerViewAdapter;
 
     public ListFragment() {
         // Required empty public constructor
+    }
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(MOVIE_SORT, movieSort);
     }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -67,10 +74,17 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
         recyclerViewAdapter = new RecyclerViewAdapter(this);
         recyclerView.setAdapter(recyclerViewAdapter);
 
-        // Call loadFavMovies to perform the request to Favorite movies database
-//       loadFavMovies();
-        // Call Movies with order of popular to perform the request
-        loadData(POPULAR);
+        // Call Movies to perform the request
+        if (savedInstanceState == null) {
+            loadData(POPULAR);
+        } else {
+            movieSort = savedInstanceState.getString(MOVIE_SORT);
+            if(movieSort == "fav") {
+                loadFavMovies();
+            } else {
+                loadData(movieSort);
+            }
+        }
         return view;
     }
 
@@ -187,12 +201,15 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
         switch (item.getItemId()) {
             case R.id.menu_pop:
                 loadData(POPULAR);
+                movieSort = POPULAR;
                 return true;
             case R.id.menu_rate:
                 loadData(TOP_RATED);
+                movieSort = TOP_RATED;
                 return true;
             case R.id.menu_fav:
                 loadFavMovies();
+                movieSort = "fav";
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
