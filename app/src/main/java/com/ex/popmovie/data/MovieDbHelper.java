@@ -29,7 +29,7 @@ import com.ex.popmovie.data.MovieContract.*;
 
 class MovieDbHelper extends SQLiteOpenHelper {
 
-    // Create datebase file name:
+    // Create database file name:
     private static final String DB_NAME = "FavMovie.db";
     // If you change the database schema, you must increment the database version
     private static final int DB_VERSION = 1;

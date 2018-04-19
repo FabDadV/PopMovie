@@ -5,7 +5,7 @@ import android.net.Uri;
 import android.provider.BaseColumns;
 
 // Class MovieContract define table name and hir column names
-public class MovieContract {
+public final class MovieContract {
     public static final String AUTHORITY = "com.ex.popmovie.data";
     private static final Uri BASE_URI = Uri.parse("content://" + AUTHORITY);
 

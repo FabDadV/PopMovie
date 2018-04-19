@@ -10,6 +10,9 @@ import java.net.HttpURLConnection;
 
 /* Utility functions to handle JSON data. */
 public final class JsonUtils {
+    private JsonUtils() {
+        throw new AssertionError();
+    }
     public static Movie[] parseJson(String dataJsonStr) throws JSONException {
         final String CUR_HTTP_CODE = "cod";
         JSONObject dataJson = new JSONObject(dataJsonStr);

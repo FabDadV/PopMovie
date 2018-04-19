@@ -14,17 +14,6 @@ public class Movie implements Parcelable {
 
     public Movie() {}
 
-    public Movie CopyMovie(Movie FirstMovie) {
-        this.setIdMovie(FirstMovie.getIdMovie());
-        this.setTitle(FirstMovie.getTitle());
-        this.setPosterPath(FirstMovie.getPosterPath());
-        this.setOverview(FirstMovie.getOverview());
-        this.setVote(FirstMovie.getVote());
-        this.setPop(FirstMovie.getPop());
-        this.setReleaseDate(FirstMovie.getReleaseDate());
-        return this;
-    }
-
 /*
     public Movie(String idMovie, String title, String posterPath, String overview, String vote, String pop, String releaseDate) {
         this.idMovie = idMovie;

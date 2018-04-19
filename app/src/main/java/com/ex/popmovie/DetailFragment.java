@@ -137,7 +137,7 @@ public class DetailFragment extends Fragment {
         return isFav;
     }
     // update Favorite movie database
-    private boolean updateFavMovie(String id) {
+    private void updateFavMovie(String id) {
         if(isFav) {
             isFav = false;
             deleteFavMovie(id);
@@ -145,7 +145,6 @@ public class DetailFragment extends Fragment {
             isFav = true;
             saveFavMovie();
         }
-        return isFav;
     }
     // saves Favorite movie information to the database
     private void saveFavMovie() {
@@ -159,7 +158,7 @@ public class DetailFragment extends Fragment {
         contentValues.put(MovieContract.MovieTable.COLUMN_POP, movieDetail.getPop());
         contentValues.put(MovieContract.MovieTable.COLUMN_RELEASE, movieDetail.getReleaseDate());
 
-        Uri newMovieUri = getActivity().getContentResolver().insert(
+        getActivity().getContentResolver().insert(
                 MovieContract.MovieTable.CONTENT_URI, contentValues);
         Fragment fragment = getFragmentManager().findFragmentById(R.id.fragment_container);
         ((ImageButton) fragment.getView().findViewById(R.id.imgButton_fav))
@@ -168,7 +167,7 @@ public class DetailFragment extends Fragment {
     // saves Favorite movie information to the database
     private void deleteFavMovie(String id) {
         // delete movie with id from Favorite movie's database
-        int rowsDelete = getActivity().getContentResolver().delete(MovieContract.MovieTable.CONTENT_URI,
+        getActivity().getContentResolver().delete(MovieContract.MovieTable.CONTENT_URI,
                 MovieContract.MovieTable.COLUMN_ID_MOVIE + " = " + id ,null);
 
         Fragment fragment = getFragmentManager().findFragmentById(R.id.fragment_container);
