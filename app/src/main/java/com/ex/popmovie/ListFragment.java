@@ -68,9 +68,9 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
         recyclerView.setAdapter(recyclerViewAdapter);
 
         // Call loadFavMovies to perform the request to Favorite movies database
-       loadFavMovies();
+//       loadFavMovies();
         // Call Movies with order of popular to perform the request
-//        loadData(POPULAR);
+        loadData(POPULAR);
         return view;
     }
 
