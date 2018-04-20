@@ -15,11 +15,13 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewDebug;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
@@ -34,26 +36,33 @@ import static com.ex.popmovie.DetailFragment.EXTRA_OBJECT;
  * A simple {@link Fragment} subclass.
  */
 public class ListFragment extends Fragment implements RecyclerViewAdapter.RecyclerViewAdapterOnClickHandler {
+    private static final String TAG = " ****** ListFragment ";
     private static final String POPULAR = "/popular?";
     private static final String TOP_RATED = "/top_rated?";
     private static final String FAVORITE = "fav";
     private static final String MOVIE_SORT = "movie_sort";
+    private static final String MARK_POSITION = "mark_position";
     private static final int DEFAULT_SIZE = 180;
     private String movieSort = POPULAR;
+    private int markPosition = 0;
     private RecyclerView recyclerView;
     private RecyclerViewAdapter recyclerViewAdapter;
 
     public ListFragment() {
+        Log.d(TAG, "Constructor ListFragment called");
         // Required empty public constructor
     }
     @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putString(MOVIE_SORT, movieSort);
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        Log.d(TAG, "onSaveInstanceState called");
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putString(MOVIE_SORT, movieSort);
+        savedInstanceState.putInt(MARK_POSITION, markPosition);
     }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate called");
         setHasOptionsMenu(true);
         if(!isInternet()) {
             Toast.makeText(getActivity(), R.string.detail_error_internet, Toast.LENGTH_LONG).show();
@@ -62,6 +71,7 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d(TAG, "onCreateView called");
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_list, container, false);
 
@@ -77,9 +87,9 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
 
         // Call Movies to perform the request
         if (savedInstanceState == null) {
-//            loadData(POPULAR);
-            loadFavMovies();
+           loadData(POPULAR);
         } else {
+            markPosition = savedInstanceState.getInt(MARK_POSITION);
             movieSort = savedInstanceState.getString(MOVIE_SORT);
             if(movieSort == FAVORITE) {
                 loadFavMovies();
@@ -87,6 +97,8 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
                 loadData(movieSort);
             }
         }
+        Log.d(TAG, "onCreateView called" + movieSort);
+        recyclerView.scrollToPosition(markPosition);
         return view;
     }
 
@@ -173,6 +185,7 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
         Intent intent = new Intent(getActivity(), DetailActivity.class);
         // Pass the data to the DetailActivity
         Movie markMovie = this.recyclerViewAdapter.movieList[position];
+        markPosition = position;
         intent.putExtra(EXTRA_OBJECT, markMovie);
         startActivity(intent);
     }
@@ -220,5 +233,47 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onAttachFragment(Fragment childFragment) {
+        super.onAttachFragment(childFragment);
+        Log.d(TAG, "onAttachFragment called");
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Log.d(TAG, "onAttach called");
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Log.d(TAG, "onViewCreated");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, "onCreateView called");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG, "onResume called");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.d(TAG, "onDestroyView called");
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        Log.d(TAG, "onDetach called");
     }
 }
