@@ -3,7 +3,8 @@
     <string name="key_api">API_KEY</string>
     <string name="detail_error_context">Null Context List fragment</string>
     <string name="detail_error_query">ErrorQuery. Check out correct api_key</string>
-    ""
+    <string name="detail_error_internet">No Internet. Check out Internet connection</string>
+
     <string name="invalid_update_uri">Invalid update Uri</string>
     <string name="invalid_query_uri">Invalid query Uri</string>
     <string name="invalid_insert_uri">Invalid insert Uri</string>

@@ -56,7 +56,7 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         if(!isInternet()) {
-            Toast.makeText(getActivity(), "No Internet. Check out Internet connection", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), R.string.detail_error_internet, Toast.LENGTH_LONG).show();
         }
     }
     @Override
@@ -150,7 +150,7 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
             // Instead of iterating through every string, use recyclerViewAdapter.setList and pass in data
             recyclerViewAdapter.setList(movieList);
         } else {
-            Toast.makeText(getActivity(), "ErrorQuery. Check out correct api_key", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), R.string.detail_error_query, Toast.LENGTH_SHORT).show();
         }
     }
 
