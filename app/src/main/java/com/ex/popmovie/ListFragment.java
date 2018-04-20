@@ -36,6 +36,7 @@ import static com.ex.popmovie.DetailFragment.EXTRA_OBJECT;
 public class ListFragment extends Fragment implements RecyclerViewAdapter.RecyclerViewAdapterOnClickHandler {
     private static final String POPULAR = "/popular?";
     private static final String TOP_RATED = "/top_rated?";
+    private static final String FAVORITE = "fav";
     private static final String MOVIE_SORT = "movie_sort";
     private static final int DEFAULT_SIZE = 180;
     private String movieSort = POPULAR;
@@ -76,10 +77,11 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
 
         // Call Movies to perform the request
         if (savedInstanceState == null) {
-            loadData(POPULAR);
+//            loadData(POPULAR);
+            loadFavMovies();
         } else {
             movieSort = savedInstanceState.getString(MOVIE_SORT);
-            if(movieSort == "fav") {
+            if(movieSort == FAVORITE) {
                 loadFavMovies();
             } else {
                 loadData(movieSort);
@@ -92,9 +94,8 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
         String apiKey = getResources().getString(R.string.key_api);
         new QueryAsyncTask().execute(apiKey, queryType);
     }
-
     // Create a class that extends AsyncTask to perform network requests
-    class QueryAsyncTask extends AsyncTask<String, Void, Movie[]> {
+    public class QueryAsyncTask extends AsyncTask<String, Void, Movie[]> {
         // Override the doInBackground method to perform your network requests
         @Override
         protected Movie[] doInBackground(String... params) {
@@ -114,16 +115,21 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
         }
         // Override the onPostExecute method to display the results of the network request
         @Override
-        protected void onPostExecute(Movie[] movieList) {
-            if (movieList != null) {
-                recyclerView.setVisibility(View.VISIBLE);
-                // Instead of iterating through every string, use recyclerViewAdapter.setList and pass in data
-                recyclerViewAdapter.setList(movieList);
-            } else {
-                Toast.makeText(getActivity(), "ErrorQuery. Check out correct api_key", Toast.LENGTH_SHORT).show();
-            }
+        protected void onPostExecute(Movie[] movies) {
+            bindRecycleView(movies);
         }
     }
+
+    public void bindRecycleView(Movie[] movieList) {
+        if (movieList != null) {
+            recyclerView.setVisibility(View.VISIBLE);
+            // Instead of iterating through every string, use recyclerViewAdapter.setList and pass in data
+            recyclerViewAdapter.setList(movieList);
+        } else {
+            Toast.makeText(getActivity(), R.string.detail_error_query, Toast.LENGTH_SHORT).show();
+        }
+    }
+
     // Perform db request
     private void loadFavMovies() {
         Cursor cursor = getActivity().getContentResolver().query(
@@ -209,7 +215,7 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
                 return true;
             case R.id.menu_fav:
                 loadFavMovies();
-                movieSort = "fav";
+                movieSort = FAVORITE;
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

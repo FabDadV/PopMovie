@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.ex.popmovie.R;
+import com.ex.popmovie.ListFragment;
 import com.ex.popmovie.data.Movie;
 import com.squareup.picasso.Picasso;
 
@@ -89,7 +90,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         String posterUrl = MOVIE_URL + dataMovie.getPosterPath();
         Picasso.with(viewHolder.itemView.getContext())
                 .load(posterUrl)
+                .placeholder(R.drawable.the_movie_db)
+                .error(R.drawable.no_poster)
                 .into(viewHolder.ivPoster);
+/*
+        Picasso.with(viewHolder.itemView.getContext())
+                .load(posterUrl)
+                .into(viewHolder.ivPoster);
+*/
     }
     // Override getItemCount
     // Return 0 if mList is null, or the size of mList if it is not null
