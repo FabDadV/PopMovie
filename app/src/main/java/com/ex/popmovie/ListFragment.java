@@ -87,8 +87,9 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
 
         // Call Movies to perform the request
         if (savedInstanceState == null) {
-           loadData(POPULAR);
+            loadData(POPULAR);
         } else {
+            // restore InstanceState from Bundle:
             markPosition = savedInstanceState.getInt(MARK_POSITION);
             movieSort = savedInstanceState.getString(MOVIE_SORT);
             if(movieSort == FAVORITE) {
@@ -98,6 +99,7 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
             }
         }
         Log.d(TAG, "onCreateView called" + movieSort);
+//        recyclerViewAdapter.notifyDataSetChanged();
         recyclerView.scrollToPosition(markPosition);
         return view;
     }

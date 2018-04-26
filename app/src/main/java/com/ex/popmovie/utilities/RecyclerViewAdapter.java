@@ -93,11 +93,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 .placeholder(R.drawable.the_movie_db)
                 .error(R.drawable.no_poster)
                 .into(viewHolder.ivPoster);
-/*
-        Picasso.with(viewHolder.itemView.getContext())
-                .load(posterUrl)
-                .into(viewHolder.ivPoster);
-*/
     }
     // Override getItemCount
     // Return 0 if mList is null, or the size of mList if it is not null
