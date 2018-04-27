@@ -76,11 +76,12 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
         View view = inflater.inflate(R.layout.fragment_list, container, false);
 
         recyclerView = view.findViewById(R.id.rv_list);
-        Context context = getContext();
+        Context context = getActivity();
         if(context == null) closeOnError();
-        int numberOfColumns = calculateColumns(getContext());
+        int numberOfColumns = calculateColumns(context);
         // Set the gridLayoutManager on recyclerView
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), numberOfColumns));
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(context, numberOfColumns);
+        recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setHasFixedSize(true);
         recyclerViewAdapter = new RecyclerViewAdapter(this);
         recyclerView.setAdapter(recyclerViewAdapter);
@@ -101,6 +102,8 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
         Log.d(TAG, "onCreateView called" + movieSort);
 //        recyclerViewAdapter.notifyDataSetChanged();
         recyclerView.scrollToPosition(markPosition);
+//        gridLayoutManager.scrollToPosition(markPosition);
+
         return view;
     }
 
@@ -186,8 +189,8 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
     public void onClick(int position) {
         Intent intent = new Intent(getActivity(), DetailActivity.class);
         // Pass the data to the DetailActivity
-        Movie markMovie = this.recyclerViewAdapter.movieList[position];
         markPosition = position;
+        Movie markMovie = this.recyclerViewAdapter.movieList[position];
         intent.putExtra(EXTRA_OBJECT, markMovie);
         startActivity(intent);
     }
