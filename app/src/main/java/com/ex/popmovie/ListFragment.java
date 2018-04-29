@@ -100,10 +100,6 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
             }
         }
         Log.d(TAG, "onCreateView called" + movieSort);
-//        recyclerViewAdapter.notifyDataSetChanged();
-        recyclerView.scrollToPosition(markPosition);
-//        gridLayoutManager.scrollToPosition(markPosition);
-
         return view;
     }
 
@@ -142,6 +138,7 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
             recyclerView.setVisibility(View.VISIBLE);
             // Instead of iterating through every string, use recyclerViewAdapter.setList and pass in data
             recyclerViewAdapter.setList(movieList);
+            recyclerView.scrollToPosition(markPosition); // Thanks to @Tim for the solution
         } else {
             Toast.makeText(getActivity(), R.string.detail_error_query, Toast.LENGTH_SHORT).show();
         }
