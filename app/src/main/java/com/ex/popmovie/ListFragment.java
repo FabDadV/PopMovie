@@ -211,7 +211,6 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
         getActivity().finish();
         Toast.makeText(getContext(), R.string.detail_error_context, Toast.LENGTH_SHORT).show();
     }
-
     // Creating Menu: Popular TopRating Favorite and HomeButton
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -235,47 +234,5 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    @Override
-    public void onAttachFragment(Fragment childFragment) {
-        super.onAttachFragment(childFragment);
-        Log.d(TAG, "onAttachFragment called");
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Log.d(TAG, "onAttach called");
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        Log.d(TAG, "onViewCreated");
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.d(TAG, "onCreateView called");
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.d(TAG, "onResume called");
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        Log.d(TAG, "onDestroyView called");
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        Log.d(TAG, "onDetach called");
     }
 }
