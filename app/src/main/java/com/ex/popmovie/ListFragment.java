@@ -48,13 +48,12 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
     private RecyclerViewAdapter recyclerViewAdapter;
 
     public ListFragment() {
-        Log.d(TAG, "Constructor ListFragment called");
         // Required empty public constructor
     }
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
-        Log.d(TAG, "onSaveInstanceState called " + Integer.toString(markPosition) + movieSort);
+//        Log.d(TAG, "onSaveInstanceState called " + Integer.toString(markPosition) + movieSort);
         savedInstanceState.putString(MOVIE_SORT, movieSort);
         savedInstanceState.putInt(MARK_POSITION, markPosition);
     }
@@ -66,18 +65,13 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
         {
             markPosition = savedInstanceState.getInt(MARK_POSITION);
             movieSort = savedInstanceState.getString(MOVIE_SORT);
-            Log.d(TAG, "onViewStateRestored called " + Integer.toString(markPosition) + movieSort);
+//            Log.d(TAG, "onViewStateRestored called " + Integer.toString(markPosition) + movieSort);
             recyclerView.scrollToPosition(markPosition);
-/*
-            Parcelable savedRecyclerLayoutState = savedInstanceState.getParcelable(BUNDLE_RECYCLER_LAYOUT);
-            recyclerView.getLayoutManager().onRestoreInstanceState(savedRecyclerLayoutState);
-*/
         }
     }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "onCreate called");
         setHasOptionsMenu(true);
         if(!isInternet()) {
             Toast.makeText(getActivity(), R.string.detail_error_internet, Toast.LENGTH_LONG).show();
@@ -100,7 +94,6 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
         recyclerViewAdapter = new RecyclerViewAdapter(this);
         recyclerView.setAdapter(recyclerViewAdapter);
 
-        Log.d(TAG, "onCreateView( called " + Integer.toString(markPosition) + movieSort);
         // Call Movies to perform the request
         if (savedInstanceState == null) {
             loadData(POPULAR);
@@ -114,6 +107,7 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
                 loadData(movieSort);
             }
         }
+//        Log.d(TAG, "onCreateView( called " + Integer.toString(markPosition) + movieSort);
         return view;
     }
 

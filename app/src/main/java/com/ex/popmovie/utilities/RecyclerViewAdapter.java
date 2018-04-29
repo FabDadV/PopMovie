@@ -88,8 +88,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
      */
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-        if(position > 1) ListFragment.markPosition = position;
-        Log.d(TAG, "onBindViewHolder called " + Integer.toString(position));
+        if(position > 1) ListFragment.markPosition = position-2;
         Movie dataMovie = movieList[position];
         String posterUrl = MOVIE_URL + dataMovie.getPosterPath();
         Picasso.with(viewHolder.itemView.getContext())
