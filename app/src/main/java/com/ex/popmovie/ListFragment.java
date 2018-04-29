@@ -93,7 +93,7 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
             // restore InstanceState from Bundle:
             markPosition = savedInstanceState.getInt(MARK_POSITION);
             movieSort = savedInstanceState.getString(MOVIE_SORT);
-            if(movieSort == FAVORITE) {
+            if(movieSort.equals(FAVORITE)) {
                 loadFavMovies();
             } else {
                 loadData(movieSort);
