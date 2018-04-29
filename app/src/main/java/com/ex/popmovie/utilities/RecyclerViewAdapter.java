@@ -3,6 +3,7 @@ package com.ex.popmovie.utilities;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,6 +17,7 @@ import com.squareup.picasso.Picasso;
 
 // Creates a RecyclerView Adapter:
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{
+    private static final String TAG = " ***RV: ";
     private static final String MOVIE_URL = "http://image.tmdb.org/t/p/w342";
     public Movie[] movieList;
     // An on-click handler that we've defined to make it easy for an Activity to interface with our RecyclerView
@@ -86,6 +88,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
      */
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
+        if(position > 1) ListFragment.markPosition = position;
+        Log.d(TAG, "onBindViewHolder called " + Integer.toString(position));
         Movie dataMovie = movieList[position];
         String posterUrl = MOVIE_URL + dataMovie.getPosterPath();
         Picasso.with(viewHolder.itemView.getContext())

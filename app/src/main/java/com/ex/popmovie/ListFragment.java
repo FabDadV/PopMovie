@@ -44,7 +44,7 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
     private static final String MARK_POSITION = "mark_position";
     private static final int DEFAULT_SIZE = 180;
     private String movieSort = POPULAR;
-    private int markPosition = 0;
+    public static int markPosition = 0;
     private RecyclerView recyclerView;
     private RecyclerViewAdapter recyclerViewAdapter;
 
@@ -54,10 +54,26 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
     }
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
-        Log.d(TAG, "onSaveInstanceState called");
         super.onSaveInstanceState(savedInstanceState);
+        Log.d(TAG, "onSaveInstanceState called " + Integer.toString(markPosition) + movieSort);
         savedInstanceState.putString(MOVIE_SORT, movieSort);
         savedInstanceState.putInt(MARK_POSITION, markPosition);
+    }
+
+    @Override
+    public void onViewStateRestored(Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        if(savedInstanceState != null)
+        {
+            markPosition = savedInstanceState.getInt(MARK_POSITION);
+            movieSort = savedInstanceState.getString(MOVIE_SORT);
+            Log.d(TAG, "onViewStateRestored called " + Integer.toString(markPosition) + movieSort);
+            recyclerView.scrollToPosition(markPosition);
+/*
+            Parcelable savedRecyclerLayoutState = savedInstanceState.getParcelable(BUNDLE_RECYCLER_LAYOUT);
+            recyclerView.getLayoutManager().onRestoreInstanceState(savedRecyclerLayoutState);
+*/
+        }
     }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,7 +87,6 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.d(TAG, "onCreateView called");
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_list, container, false);
 
@@ -86,6 +101,7 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
         recyclerViewAdapter = new RecyclerViewAdapter(this);
         recyclerView.setAdapter(recyclerViewAdapter);
 
+        Log.d(TAG, "onCreateView( called " + Integer.toString(markPosition) + movieSort);
         // Call Movies to perform the request
         if (savedInstanceState == null) {
             loadData(POPULAR);
@@ -99,7 +115,6 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
                 loadData(movieSort);
             }
         }
-        Log.d(TAG, "onCreateView called" + movieSort);
         return view;
     }
 
@@ -138,6 +153,7 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
             recyclerView.setVisibility(View.VISIBLE);
             // Instead of iterating through every string, use recyclerViewAdapter.setList and pass in data
             recyclerViewAdapter.setList(movieList);
+            Log.d(TAG, "bindRecycleView " + Integer.toString(markPosition));
             recyclerView.scrollToPosition(markPosition); // Thanks to @Tim for the solution
         } else {
             Toast.makeText(getActivity(), R.string.detail_error_query, Toast.LENGTH_SHORT).show();
@@ -222,14 +238,17 @@ public class ListFragment extends Fragment implements RecyclerViewAdapter.Recycl
             case R.id.menu_pop:
                 loadData(POPULAR);
                 movieSort = POPULAR;
+                markPosition = 0;
                 return true;
             case R.id.menu_rate:
                 loadData(TOP_RATED);
                 movieSort = TOP_RATED;
+                markPosition = 0;
                 return true;
             case R.id.menu_fav:
                 loadFavMovies();
                 movieSort = FAVORITE;
+                markPosition = 0;
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
