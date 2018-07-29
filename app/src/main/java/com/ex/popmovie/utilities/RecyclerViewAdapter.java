@@ -3,7 +3,6 @@ package com.ex.popmovie.utilities;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -21,16 +20,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private static final String MOVIE_URL = "http://image.tmdb.org/t/p/w342";
     public Movie[] movieList;
     // An on-click handler that we've defined to make it easy for an Activity to interface with our RecyclerView
-    private final RecyclerViewAdapterOnClickHandler mClickHandler;
+    private final OnClickHandler clickHandler;
     // The interface that receives onClick messages.
-    public interface RecyclerViewAdapterOnClickHandler {
-        void onClick(int position);
-    }
+    public interface OnClickHandler { void onClick(int position); }
     /* Creates a RecyclerViewAdapter.
      * @param clickHandler The on-click handler for this adapter. This single handler is called when an item is clicked.
      */
-    public RecyclerViewAdapter(RecyclerViewAdapterOnClickHandler clickHandler) {
-        mClickHandler = clickHandler;
+    public RecyclerViewAdapter(OnClickHandler clickHandler) {
+        this.clickHandler = clickHandler;
     }
     /**
      * Cache of the children views for a list item.
@@ -49,7 +46,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         @Override
         public void onClick(View v) {
             int adapterPosition = getAdapterPosition();
-            mClickHandler.onClick(adapterPosition);
+            clickHandler.onClick(adapterPosition);
         }
     }
     // Override onCreateViewHolder

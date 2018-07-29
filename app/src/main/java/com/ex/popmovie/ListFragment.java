@@ -34,7 +34,7 @@ import static com.ex.popmovie.DetailFragment.EXTRA_OBJECT;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ListFragment extends Fragment implements RecyclerViewAdapter.RecyclerViewAdapterOnClickHandler {
+public class ListFragment extends Fragment implements RecyclerViewAdapter.OnClickHandler {
     private static final String TAG = " ****** ListFragment ";
     private static final String POPULAR = "/popular?";
     private static final String TOP_RATED = "/top_rated?";
