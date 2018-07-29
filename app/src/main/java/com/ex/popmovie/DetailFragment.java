@@ -73,7 +73,7 @@ public class DetailFragment extends Fragment {
         final String mIdMovie = movieDetail.getIdMovie();
 
         String posterUrl = MOVIE_URL + mPosterPath;
-        Picasso.with(getContext())
+        Picasso.get()
                 .load(posterUrl)
                 .placeholder(R.drawable.the_movie_db)
                 .error(R.drawable.no_poster)

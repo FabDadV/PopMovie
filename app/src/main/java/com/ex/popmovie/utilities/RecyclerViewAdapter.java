@@ -91,7 +91,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         if(position > 1) ListFragment.markPosition = position-2;
         Movie dataMovie = movieList[position];
         String posterUrl = MOVIE_URL + dataMovie.getPosterPath();
-        Picasso.with(viewHolder.itemView.getContext())
+        Picasso.get()
                 .load(posterUrl)
                 .placeholder(R.drawable.the_movie_db)
                 .error(R.drawable.no_poster)
