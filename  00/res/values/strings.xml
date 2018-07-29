@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">PopMovie</string>
+    <string name="key_api">50ad415f5694497a5163b2233705daa1</string>
+    <string name="detail_error_context">Null Context List fragment</string>
+    <string name="detail_error_query">ErrorQuery. Check out correct api_key</string>
+    <string name="detail_error_internet">No Internet. Check out Internet connection</string>
+
+    <string name="invalid_update_uri">Invalid update Uri</string>
+    <string name="invalid_query_uri">Invalid query Uri</string>
+    <string name="invalid_insert_uri">Invalid insert Uri</string>
+    <string name="insert_failed">Insert failed</string>
+
+    <string name="top_pop">Pop</string>
+    <string name="top_rated">Top</string>
+    <string name="top_fav">Fav</string>
+
+    <string name="image_description">Movie</string>
+    <string name="image_fav">Fav</string>
+    <string name="image_play">Play</string>
+
+    <string name="label_vote">Top rating: </string>
+    <string name="label_pop">Popularity: </string>
+    <string name="button_reviews">Reviews</string>
+</resources>
